@@ -233,7 +233,7 @@ function ladmm(scene_args)
        end
 
        if mod(ii,50) == 0
-            save(sprintf('results/%s_%d_0.02e_%0.02e.mat',scene_name,ii,lambda,lambda_l1),'x','lambda','rho','ii','d','times','lambda_l1','snr','vol');   
+            save(sprintf('results/%s_%d_%0.02e_%0.02e.mat',scene_name,ii,lambda,lambda_l1),'x','lambda','rho','ii','d','times','lambda_l1','snr','vol');   
        end
     end
 end
