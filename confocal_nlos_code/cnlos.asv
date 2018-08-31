@@ -22,7 +22,7 @@
 
 % Default scene
 % if nargin < 1
-    scene = 9;
+    scene = 2;
 % end
 
 % Constants
