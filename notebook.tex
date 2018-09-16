@@ -1,0 +1,2026 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Notes}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Paper: Confocal non-line-of-sight based on the light-cone
+transform}\label{paper-confocal-non-line-of-sight-based-on-the-light-cone-transform}
+
+    \subsection{Abstract}\label{abstract}
+
+How to image objects that are hidden from a camera's view is a problem
+of fundamental importance to many fields of research1--20, with
+applications in robotic vision, defence, remote sensing, medical imaging
+and autonomous vehicles. Non-line-of-sight (NLOS) imaging at macroscopic
+scales has been demonstrated by scanning a visible surface with a pulsed
+laser and a time-resolved detector14--19. Whereas light detection and
+ranging (LIDAR) systems use such measurements to recover the shape of
+visible objects from direct reflections21--24, NLOS imaging reconstructs
+the shape and albedo of hidden objects from multiply scattered light.
+Despite recent advances, NLOS imaging has remained impractical owing to
+the prohibitive memory and processing requirements of existing
+reconstruction algorithms, and the extremely weak signal of multiply
+scattered light. Here we show that a confocal scanning procedure can
+address these challenges by facilitating the derivation of the
+light-cone transform to solve the NLOS reconstruction problem. This
+method requires much smaller computational and memory resources than
+previous reconstruction methods do and images hidden objects at
+unprecedented resolution. Confocal scanning also provides a sizeable
+increase in signal and range when imaging retroreflective objects. We
+quantify the resolution bounds of NLOS imaging, demonstrate its
+potential for real-time tracking and derive efficient algorithms that
+incorporate image priors and a physically accurate noise model.
+Additionally, we describe successful outdoor experiments of NLOS imaging
+under indirect sunlight.
+
+    \subsubsection{摘要中的重点}\label{ux6458ux8981ux4e2dux7684ux91cdux70b9}
+
+\begin{itemize}
+\tightlist
+\item
+  非视距成像，即当照相机与物体之间有障碍物时的成像，有很多应用，包括在机器视觉，遥感，医学成像，自动驾驶等
+\item
+  通过脉冲激光和时间分辨探测器扫描可见表面已经验证了宏观尺度上的非视距成像
+\item
+  尽管NLOS最近取得了不少的进展，但NLOS成像仍旧不切实际，原因包括:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    现有重建算法对于存储和处理速度的要求过高
+  \item
+    多次散射后光信号极弱
+  \end{itemize}
+\item
+  本文说明了共焦扫描可以通过促进光锥变换的实现来解决NLOS的重建问题
+\item
+  这种基于光锥变换的共焦非视距成像的优点有：
+
+  \begin{itemize}
+  \tightlist
+  \item
+    时间复杂度低
+  \item
+    空间复杂度低
+  \item
+    成像分辨率高
+  \item
+    当对逆向反射物体进行成像时，共焦扫描还可以显着增加信号和范围
+  \end{itemize}
+\item
+  本文的其他工作
+
+  \begin{itemize}
+  \tightlist
+  \item
+    量化了NLOS成像的分辨率界限
+  \item
+    展示了其实时跟踪的潜力
+  \item
+    推导出包含图像先验和物理精确噪声模型的高效算法
+  \item
+    描述了在间接阳光下成功进行NLOS成像的户外实验。
+  \end{itemize}
+\end{itemize}
+
+    \subsection{Paragraph 1}\label{paragraph-1}
+
+LIDAR systems use time-resolved sensors to scan the three- dimensional
+(3D) geometry of objects21--24. Such systems acquire range measurements
+by recording the time required for light to travel along a direct path
+from a source to a point on the object and back to a sensor. Recently,
+these types of sensors have also been used to perform NLOS tracking12,13
+or imaging14--20 of objects `hidden around corners', where the position
+and shape of the objects are computed from indirect light paths. The
+light travelling along indirect paths scatters multiple times before
+reaching a sensor and may scatter off objects outside a camera's direct
+line of sight (Fig. 1). Recovering images of hidden objects from
+indirect light paths involves a challenging inverse problem because
+there are infinitely many such paths to consider. With applications in
+remote sensing and machine vision, NLOS imaging could enable
+capabilities for a variety of imaging systems.
+
+    \subsubsection{第一段}\label{ux7b2cux4e00ux6bb5}
+
+LIDAR系统使用时间分辨传感器扫描物体的三维（3D）几何结构{[}21-24{]}。
+这样的系统通过记录光沿着从源到物体上的点并返回到传感器的直接路径行进所需的时间来获取距离测量值。
+最近，这些类型的传感器也被用于执行对象``隐藏在角落周围''的NLOS跟踪12,13或成像14-20，其中对象的位置和形状是从间接光路计算的。沿着间接路径传播的光在到达传感器之前会散射多次，并且可能会散射出摄像机直接视线外的物体（图1）。
+从间接光路中恢复隐藏对象的图像涉及具有挑战性的逆问题，因为需要考虑无限多个这样的路径。
+借助遥感和机器视觉应用，NLOS成像可以实现各种成像系统的功能。
+
+    \subsection{Paragraph 2}\label{paragraph-2}
+
+The challenging task of imaging objects that are partially or fully
+obscured from view has been tackled with approaches based on timegated
+imaging2, coherence gating3, speckle correlation4,5, wavefront shaping6,
+ghost imaging7,8, structured illumination9 and intensity imaging10,11.
+At macroscopic scales, the most promising NLOS imaging systems rely on
+time-resolved detectors12--20. However, NLOS imaging with time-resolved
+systems remains a hard problem for three main reasons. First, the
+reconstruction step is prohibitively computationally demanding, in terms
+of both memory requirements and processing cycles. Second, the flux of
+multiply scattered light is extremely low, requiring either extensive
+acquisition times in dark environments or a sufficiently high-power
+laser to overcome the contribution of ambient light. Finally, NLOS
+imaging often requires a custom hardware system made with expensive
+components, thus preventing its widespread use.
+
+    \subsubsection{第二段}\label{ux7b2cux4e8cux6bb5}
+
+使用基于时间门控成像{[}2{]}，相干门控{[}3{]}，散斑相关{[}4,5{]}，波前成像{[}6{]}，重影成像{[}7,8{]}，结构照明{[}9{]}和强度成像{[}10,11{]}的方法解决了成像部分或完全模糊的物体的挑战性任务。
+在宏观尺度上，最有前景的NLOS成像系统依赖于时间分辨探测器{[}12-20{]}。
+然而，具有时间分辨系统的NLOS成像仍然是一个难题，主要有三个原因。 +
+首先，就存储器要求和处理周期而言，重建步骤在计算上要求极高。 +
+其次，多次散射光的通量非常低，需要在黑暗环境中的大量采集时间或足够高功率的激光来克服环境光的贡献。
++
+最后，NLOS成像通常需要使用昂贵组件制造的定制硬件系统，从而阻止其广泛使用。
+
+    \subsection{Paragraph 3}\label{paragraph-3}
+
+Confocal NLOS (C-NLOS) imaging aims to overcome these challenges.
+Whereas previous NLOS acquisition setups exhaustively illuminate and
+image pairs of distinct points on a visible surface (such as a wall),
+the proposed system illuminates and images the same point (Fig. 1) and
+raster-scans this point across the wall to acquire a 3D transient (that
+is, time-resolved) image14,25--27. C-NLOS i maging offers several
+advantages over existing methods. First, it facilitates the derivation
+of a closed-form solution to the NLOS problem. The proposed NLOS
+reconstruction procedure is several orders of m agnitude faster and more
+memory-efficient than previous approaches, and it also produces
+higher-quality reconstructions. Second, whereas indirectly scattered
+light remains extremely weak for diffuse objects, retroreflective
+objects (such as road signs, bicycle reflectors and high-visibility
+safety apparel) considerably increase the indirect signal by reflecting
+light back to its source with minimal scattering. This retroreflectance
+property can only be exploited by confocalized systems that
+simultaneously i lluminate and image a common point and may be the
+enabling factor towards making NLOS imaging practical in certain
+applications (such as autonomous driving). Third, LIDAR systems already
+perform confocal scanning to acquire point clouds from direct light
+paths. Our prototype system was built from the ground up, but commercial
+LIDAR systems may be capable of supporting the algorithms developed here
+with minimal hardware modifications.
+
+    \subsubsection{第三段}\label{ux7b2cux4e09ux6bb5}
+
+共聚焦NLOS（C-NLOS）成像旨在克服这些挑战。虽然先前的NLOS采集设置在可见表面（例如墙壁）上详尽地照亮和描绘了不同点的图像对，但是所提出的系统照亮并成像相同的点（图1）并且光栅扫描该点穿过墙壁以获得3D瞬态（即时间分辨）图像{[}14,25-27{]}。
+C-NLOS成像提供了优于现有方法的若干优点。 +
+首先，它有助于推导出NLOS问题的封闭形式解决方案。与以前的方法相比，所提出的NLOS重建过程比几个数量级更快且更具记忆效率，并且它还产生更高质量的重建。
++
+其次，对于漫射物体，间接散射光仍然非常弱，而逆向反射物体（例如道路标志，自行车反光镜和高能见度安全服装）通过以最小散射将光反射回其光源而显着增加间接信号。这种后向反射特性只能由共聚焦系统利用，这些系统同时发光并成像公共点，并且可能是使NLOS成像在某些应用（例如自动驾驶）中实用的有利因素。
++
+第三，LIDAR系统已经执行共焦扫描以从直接光路获取点云。我们的原型系统是从头开始构建的，但商用LIDAR系统可能能够通过最少的硬件修改来支持此处开发的算法。
+
+    \subsection{Paragraph 4}\label{paragraph-4}
+
+Similarly to other NLOS imaging approaches, our image formation model
+makes the following assumptions: there is only single scattering behind
+the wall (that is, no inter-reflections in the hidden part of the
+scene), light scatters isotropically (that is, the model ignores
+Lambert's cosine terms), and no occlusions occur within the hidden
+scene. Our approach also supports retroreflective materials through a
+minor modification of the image formation model.
+
+    \subsubsection{第四段}\label{ux7b2cux56dbux6bb5}
+
+与其他NLOS成像方法类似，我们的图像形成模型做出以下假设： +
+墙后面只有单一的散射（也就是说，场景的隐藏部分没有相互反射） +
+各向同性地散射光（即模型忽略兰伯特的余弦项） +
+并且隐藏的场景中不会出现遮挡
+
+我们的方法还通过对图像形成模型的微小修改来支持逆向反射材料。
+
+    \subsection{Paragraph 5}\label{paragraph-5}
+
+C-NLOS measurements consist of a two-dimensional set of temporal
+histograms, acquired by confocally scanning points x′ , y′ on a planar
+wall at position z′=0. This 3D volume of measurements, \(\tau\), is
+given by\\
+
+\[\tau(x',y',t)=\int\int\int_{\Omega}\frac{1}{r^{4}}\rho(x,y,z)\delta(2\sqrt{(x'-x)^{2}+(y'-y)^{2}+z^{2}}-tc)dxdydz\]
+equation (6)
+
+where c is the speed of light. Every measurement sample τ(x',y',t)
+captures the photon flux at point (x', y') and time t relative to an
+incident pulse scattered by the same point at time t = 0. Here, the
+function ρ is the albedo of the hidden scene at each point (x, y, z)
+with z \textgreater{} 0 in the 3D half-space Ω. The Dirac delta function
+δ represents the surface of a spatio-temporal four-dimensional hypercone
+given by \$x\^{}2 +y\^{}2 +z\^{}2 − (tc/2)\^{}2 = 0 \$, which models
+light propagation from the wall to the object and back to the wall. It
+is also closely related to Minkowski's light cone{[}28{]}, which is a
+geometric representation of light propagation through space and time. We
+note that the function is shift-invariant in the x and y axes, but not
+in the z axis. A feature of this formulation is that the distance
+function \(r= \sqrt{(x'−x)^2 +(y'−y)^2 +z^2} =tc/2\) can be expressed in
+terms of the arrival time t; the radiometric term \(1/r^4\) can thus be
+pulled out of the triple integral. Equation (1) can also be modified to
+model retroreflective materials by replacing \(1/r^4\) with \(1/r^2\),
+which represents a large increase in the flux of the indirect light (see
+Supplementary Information for details).
+
+    \subsubsection{第五段}\label{ux7b2cux4e94ux6bb5}
+
+C-NLOS测量由一组二维时间直方图组成，通过在位置z'=
+0处的平面壁上的共焦扫描点x'，y'获得。 这个3D体积测量值\$
+\tau \$由下式给出
+
+\[\tau(x',y',t)=\int\int\int_{\Omega}\frac{1}{r^{4}}\rho(x,y,z)\delta(2\sqrt{(x'-x)^{2}+(y'-y)^{2}+z^{2}}-tc)dxdydz\]
+equation (6)
+
+其中c是光速。
+每个测量样本τ（x'，y'，t）捕获点（x'，y'）处的光子通量和相对于在时间t =
+0处由相同点散射的入射脉冲的时间t。这里，函数ρ
+是在3D半空间Ω中z\textgreater{}
+0的每个点（x，y，z）处的隐藏场景的反照率。
+狄拉克δ函数δ表示由\(x^2+y^2+z^2-(tc/2)^2=0\)给出的时空四维超锥的表面，其模拟来自墙的光传播
+到物体并回到墙上。它也与Minkowski的光锥{[}28{]}密切相关，它是光在空间和时间传播的几何表示。我们注意到该函数在x和y轴上是移位不变的，但在z轴上不是。
+该公式的一个特征是距离函数\$ r =
+\sqrt {（x'-x）^ 2 +（y'-y）^ 2 + z ^ 2} = tc / 2
+\(可以用 到达时间t表示; 因此，辐射度项\) 1 / r \^{} 4
+\(可以从三重积分中拉出。 方程式（1）也可以修改为通过用\) 1 / r \^{} 2
+\(替换\) 1 / r \^{} 4
+\$来模拟逆向反射材料，这代表间接光通量的大幅增加（详见补充信息）。
+
+    \subsection{Paragraph 6}\label{paragraph-6}
+
+The most remarkable property of equation (1) is the fact that a change
+of variables in the integral by \(z=\sqrt{u}\),\$ dz/du=1/(2\sqrt{u})\$
+and \(v= (tc/2)^2\) results in
+
+\[\underbrace{v^{3/2}\tau (x',y',2\sqrt{v} /c)}_{R_{t}\{\tau \}(x',y',v)}=\int\int\int_{\Omega}\underbrace{\frac{1}{2\sqrt{u}}\rho (x,y,\sqrt{u})}_{R_{z}\{\rho \}(x,y,u)}\underbrace{\delta((x'-x)^2+(y'-y)^2+u-v)}_{h(x-x',y-y',v-u)}dxdydu\]
+equation (2)
+
+which can be expressed as a straightforward 3D convolution, where
+\(R_t\{ \tau \}=h∗R_z\{\rho \}\) . Here, the function h is a
+shift-invariant 3D convolution kernel, the transform \(R_z\)
+nonuniformly resamples and attenuates the elements of volume ρ along the
+z axis, and the transform \(R_t\) nonuniformly resamples and attenuates
+the measurements τ along the time axis. The inverses of both \(R_z\) and
+\(R_t\) also have closed-form expressions. We refer to equation (2) as
+the light-cone transform (LCT).
+
+    \subsubsection{第6段}\label{ux7b2c6ux6bb5}
+
+等式（1）中最显着的特性是将积分式中的变量进行如下代换: \$ z = \sqrt {u}
+\(，\) dz/du = 1/(2\sqrt {u})\(和\) v =(tc / 2)\^{} 2 \$,则有
+
+\[\underbrace{v^{3/2}\tau (x',y',2\sqrt{v} /c)}_{R_{t}\{\tau \}(x',y',v)}=\int\int\int_{\Omega}\underbrace{\frac{1}{2\sqrt{u}}\rho (x,y,\sqrt{u})}_{R_{z}\{\rho \}(x,y,u)}\underbrace{\delta((x'-x)^2+(y'-y)^2+u-v)}_{h(x-x',y-y',v-u)}dxdydu\]
+equation (2)
+
+这可以表示为一个简单的3D卷积，其中\$ R\_t \{\tau \} = h * R\_z
+\{\rho \}\(。 这里，函数h是一个移位不变的3D卷积核，变换\) R\_z
+\(不均匀地重新采样并衰减沿z轴的体积ρ的元素，并且变换\) R\_t
+\(不均匀地重新采样并衰减沿时间轴的测量值τ。\)R\_z\(和\)R\_t\$的反转也有闭式表达式。我们将等式(2)称为光锥变换(LCT)。
+
+    \subsection{Paragraph 7}\label{paragraph-7}
+
+The image formation model can be discretized as \(R_t\tau =HR_z\rho\),
+where \(\tau \in \mathbb{R}_+^{n_{x}n_{y}n_{t}}\) is the vectorized
+representation of the measurements, and
+\(\rho \in \mathbb{R}_+^{n_{x}n_{y}n_{z}}\) is the vectorized volume of
+the albedos of the hidden surface. The process of discretizing each
+function involves defining a finite grid and integrating the function
+over each cell in the grid. The matrix
+\(H \in \mathbb{R}_+^{n_{x}n_{y}n_{h}\times n_{x}n_{y}n_{h}}\)
+represents the shift-invariant 3D convolution operation, and the
+matrices
+\(R_{t} \in \mathbb{R}_+^{n_{x}n_{y}n_{h}\times n_{x}n_{y}n_{t}}\) and
+\(R_z \in \mathbb{R}_+^{n_{x}n_{y}n_{h}\times n_{x}n_{y}n_{z}}\)
+represent the transformation operations applied to the temporal and
+spatial dimensions, respectively. We note that both transformation
+matrices are independently applied to their respective dimension and can
+therefore be applied to large-scale datasets in a computationally and
+memory-efficient way. Similarly, the 3D convolution operation H can be
+computed efficiently in the Fourier domain. Together, these matrices
+represent the discrete LCT.
+
+    \subsubsection{第7段}\label{ux7b2c7ux6bb5}
+
+图像形成模型可以离散为\(R_t\tau=HR_z\rho\)，其中\$\tau \in \mathbb {R}\emph{+\^{}\{n}\{x\}n\_\{y\}n\_\{t\}\}
+\(是向量化的 测量的表示，\) \rho \in \mathbb {R} \_ +\^{} \{n\_\{x\}
+n\_\{y\} n\_\{z\}\}
+\(是隐藏曲面的反照率的矢量化体积。 离散每个函数的过程包括定义有限网格并将函数集成在网格中的每个单元格上。矩阵\)
+H\in \mathbb{R}\emph{+\^{}\{n}\{x\}n\_\{y\}n\_\{h\}\times n\_\{x\}n\_\{y\}n\_\{h\}\}\(表示移位不变3D卷积操作;矩阵\)R\_\{t\}
+\in \mathbb{R} \emph{+\^{}\{n}\{x\}n\_\{y\}n\_\{h\}\times n\_
+\{x\}n\_\{y\}n\_\{t\}\}\$和
+\(R_z \in \mathbb {R}_+^{n_{x}n_{y}n_{h} \times n_{x}n_{y}n_{z}}\)表示分别应用于时间和空间维度的变换操作。我们注意到，两个变换矩阵都独立地应用于它们各自的维度，因此可以以计算和存储效率的方式应用于大规模数据集。
+类似地，可以在傅里叶域中有效地计算3D卷积运算H. 这些矩阵一起代表离散LCT。
+
+    \subsection{Paragraph 8}\label{paragraph-8}
+
+By treating NLOS imaging as a spatially invariant 3D deconvolution
+problem, a closed-form solution can be derived from the convolution
+theorem. The convolution operation is expressed as an element-wise
+multiplication in the Fourier domain and inverted according to
+\[\rho_{\ast}=R_{z}^{-1}F^{-1}(\frac{1}{\widehat{H}}\frac{|\widehat{H}|^{2}}{|\widehat{H}|^{2}+\frac{1}{\alpha}})FR_{t}\tau\]
+
+\emph{maybe it should be}
+\[\rho_{\ast}=R_{z}^{-1}F^{-1}[(\frac{1}{\widehat{H}}\frac{|\widehat{H}|^{2}}{|\widehat{H}|^{2}+\frac{1}{\alpha}})F(R_{t}\tau)]\]
+
+\begin{verbatim}
+% Step 3: Convolve with inverse filter and unpad result
+tvol = ifftn(fftn(tdata).*invpsf);
+\end{verbatim}
+
+where F is the 3D discrete Fourier transform, \(\rho_{\ast}\) is
+esitimated volume of the albedos of the hidden surface, \(\hat{H}\) is a
+diagonal matrix containing the Fourier coefficients of the 3D
+convolution kernel, and α represents the frequency-dependent
+signal-to-noise ratio of the measurements. This approach is based on
+Wiener filtering{[}29{]}, which minimizes the mean squared error between
+the reconstructed volume and the ground truth. As α approaches infinity,
+the formulation above becomes an inverse filter (that is, the filter
+applied in the frequency domain is \(1/\hat{H}\)). Similarly, the
+Fourier-domain filter in equation (3) could be replaced by
+\(\hat{H}^{\ast}\) to implement a backprojection reconstruction
+procedure. Wiener filtering with a constant α inaccurately assumes that
+the transformed measurements contain white noise. Therefore, we also
+derive an iterative reconstruction procedure that combines the LCT with
+a physically accurate Poisson noise model (Supplementary Information).
+
+    \subsubsection{第8段}\label{ux7b2c8ux6bb5}
+
+通过将NLOS成像视为空间不变的3D反卷积问题，可以从卷积定理导出闭合形式的解。
+卷积运算表示为傅里叶域中的逐元素乘法，并根据下式进行反转
+
+\[\rho_{\ast}=R_{z}^{-1}F^{-1}[(\frac{1}{\widehat{H}}\frac{|\widehat{H}|^{2}}{|\widehat{H}|^{2}+\frac{1}{\alpha}})F(R_{t}\tau)]\]
+
+其中F是3D离散傅立叶变换，\$ \rho\_\{\ast\}
+\(是隐藏曲面的反照率的估计体积，\) \hat{H}
+\$是包含3D卷积核的傅里叶系数的对角矩阵，并且 α表示测量的频率相关信噪比。
+这种方法基于维纳滤波{[}29{]}，它最小化了重建体积和地面实况之间的均方误差。当α接近无穷大时，上面的公式变为逆滤波器（即，在频域中应用的滤波器为\(1/\hat {H}\)）。
+类似地，等式（3）中的傅里叶域滤波器可以由\(\hat{H}^{\ast}\)替换以实现反投影重建过程。具有常数α的维纳滤波不准确地假设变换的测量值包含白噪声。
+因此，我们还推导出一种迭代重建程序，该程序将LCT与物理上精确的泊松噪声模型相结合(详见补充信息)。
+
+    \subsection{Paragraph 9}\label{paragraph-9}
+
+Figure 2 illustrates the inverse LCT applied to indirect measurements of
+a bunny model simulated with a physically based ray tracer{[}30{]}. The
+process involves evaluating equation (3) in three steps: (i) resampling
+and attenuating the measurements \(\tau\) with the transform \(R_t\),
+(ii) applying the Wiener filter to the result, and (iii) applying the
+inverse transform \(R_z^{-1}\) to recover ρ. These three steps are
+efficient in terms of memory and number of operations required. The most
+costly step is the application of the Wiener filter, which requires
+\(O(N^{3}logN)\) operations for the 3D fast-Fourier transforms and has
+memory requirements of \(O(N^3)\), where N is the maximum number of
+elements across all dimensions in spacetime. In comparison, existing
+backprojection-type reconstructions15--17 require \(O(N^5)\) operations,
+and methods based on inversion are much more costly both in their memory
+and processing requirements{[}17,18,20{]}.
+
+    \subsubsection{第九段}\label{ux7b2cux4e5dux6bb5}
+
+图2显示了应用于用物理光线追踪器模拟的兔子模型间接测量的逆LCT {[}30{]}。
+该过程包括分3步评估等式(3):
+
+(i)使用变换\$ R\_t \(重新采样和衰减测量值\) \tau \$
+
+(ii)将Wiener滤波器应用于结果 (iii)应用逆变换 \$R\_z \^{}\{-1\}
+\(来恢复ρ。 这三个步骤在内存和所需操作次数方面都很有效。 代价最昂贵的一步是应用Wiener滤波器，它需要\)
+O(N
+\textsuperscript{\{3\}logN)\(操作用于3D快速傅里叶变换，并且内存要求为\)O(N}3)\(，其中N是时空中所有维度的最大元素数。相比之下，现有的反投影型重建[15-17]需要\)O(N\^{}5)\$操作，基于反演的方法在内存和处理要求方面成本更高{[}17,18,20{]}。
+
+    \subsection{Paragraph 10}\label{paragraph-10}
+
+In addition to improved runtime and memory efficiency, a primary benefit
+of the LCT over backprojection-based approaches is that the inverted
+solution is accurate. In Fig. 3, we compare the reconstruction quality
+of the backprojection algorithm and the LCT for a retroreflective
+traffic sign. The dimensions of the hidden sign are 0.61 m ×0.61 m and
+the diffuse wall is sampled at 64 ×64 locations over a 0.8 m ×0.8 m
+region. The total exposure time is 6.8 min (that is, 0.1 s per sample)
+and the runtime for MATLAB to recover a volume of 64 ×64 ×512 voxels is
+1 s on a MacBook Pro (3.1-GHz Intel Core i7). To compare the
+reconstruction quality of the two methods, we compute the backprojection
+result using the LCT, which is just as efficient as inverting the
+problem with the LCT. Even though unfiltered backprojection could be
+slightly sharpened by linear filters, such as a Laplacian{[}15{]},
+backprojection methods do not solve the inverse problem (see
+Supplementary Information for detailed comparisons). In Supplementary
+Information, we also show a variety of reconstructed example scenes, as
+well as results for NLOS tracking{[}11--13{]} of retroreflective objects
+in real time.
+
+    \subsubsection{第10段}\label{ux7b2c10ux6bb5}
+
+除了提高运行时和内存效率之外，LCT相对于基于反投影的方法的主要优点是反转解决方案是准确的。在图3中，我们比较了反向投影算法和LCT对逆向反射交通标志的重建质量。隐藏标志的尺寸为0.61
+m×0.61 m，漫反射墙在0.8 m×0.8
+m区域的64×64位置采样。总曝光时间为6.8分钟（即每个样品0.1秒），在MacBook
+Pro（3.1-GHz Intel Core
+i7）上，MATLAB恢复64×64×512体素的运行时间为1秒。为了比较两种方法的重建质量，我们使用LCT计算反投影结果，这与用LCT反演问题一样有效。即使未经过滤的反投影可以通过线性滤波器（例如拉普拉斯算子{[}15{]}）略微锐化，反投影方法也不能解决反问题（参见补充信息以进行详细比较）。在补充信息中，我们还展示了各种重建的示例场景，以及实时逆向反射物体的NLOS跟踪{[}11-13{]}的结果。
+
+    \subsection{Paragraph 11}\label{paragraph-11}
+
+Applying NLOS imaging outdoors requires the indirect light from the
+hidden object to be detected in the presence of strong ambient
+illumination. To accomplish this, C-NLOS imaging takes advantage of the
+high light throughput associated with retroreflective objects. Figure 3
+presents an outdoor NLOS experiment under indirect sunlight
+(approximately 100 lx). The dimensions of the hidden retroreflective
+object are 0.76 m × 0.51 m, with 32 × 32 sampled locations over a 1 m ×1
+m area. The exposure is 0.1 s per sample, with a total exposure time of
+1.7 min. MATLAB reconstructs a volume of 32 ×32 ×1,024 voxels in 0.5 s.
+
+    \subsection{Paragraph 12}\label{paragraph-12}
+
+The fundamental bounds on the resolution of NLOS imaging approaches
+couple the full-width at half-maximum of the temporal resolution of the
+imaging system, represented by the scalar \(\gamma\), to the smallest
+resolvable axial \(\Delta z\) and lateral \(\Delta x\) spatial feature
+size as follows
+
+\[\Delta z \geq \frac{c\gamma }{2} \qquad and \qquad \Delta x \geq \frac{c\sqrt{w^{2}+z^{2}}}{2w}\gamma\]
+
+where 2w is the sampled width or height of the visible wall (see
+Supplementary Information for details).
+
+    \subsubsection{第12段}\label{ux7b2c12ux6bb5}
+
+NLOS成像方法的分辨率的基本界限将成像系统的时间分辨率的半高全宽（由标量\$
+\gamma\(表示）耦合到最小的可解析轴向\)\Delta z\(和横向\)\Delta x\$的空间特征大小如下
+
+\[\Delta z \geq \frac{c\gamma }{2} \qquad and \qquad \Delta x \geq \frac{c\sqrt{w^{2}+z^{2}}}{2w}\gamma\]
+
+其中2w是可见墙的采样宽度或高度（有关详细信息，请参阅补充信息）。
+
+    \subsection{Paragraph 13}\label{paragraph-13}
+
+To evaluate the limits of the reconstruction procedure, we simulate the
+acquisition of 1,024 ×1,024 points sampled over a 1 m ×1 m area and
+1,024 time bins with a temporal resolution of 8 ps per bin. We recover a
+volume containing 1,024 ×1,024 ×1,024 voxels. Figure 4 shows the target
+geometry in grey and the recovered shape overlaid in green. The error
+map indicates a median absolute reconstruction error of 2.5 mm (mean
+absolute error 15.1 mm, mean square error 2.7 mm). Occlusions and
+higher-order bounces of indirect illumination are not modelled by any
+existing NLOS imaging method, including ours, which may lead to
+violations in the image formation model and errors in the reconstructed
+volume. For example, the right ear of the bunny is not accurately
+recovered owing to self-occlusions by the left ear in the measurements.
+We note that the conventional approach of discretizing and inverting the
+image formation model at this resolution would require an excess of 9
+petabytes of memory just to store a sparse representation of the linear
+system.
+
+    \subsubsection{第13段}\label{ux7b2c13ux6bb5}
+
+为了评估重建过程的限制，我们模拟了在1 m×1
+m区域和1,024个时间区间采样的1,024×1,024个点，每个区间的时间分辨率为8
+ps。我们恢复了包含1,024×1,024×1,024个体素的体积。
+图4显示了灰色的目标几何图形和绿色覆盖的恢复形状。误差图表明中值绝对重建误差为2.5
+mm（平均绝对误差15.1 mm，均方误差2.7
+mm）。间接照明的遮挡和高阶反弹不是由任何现有的NLOS成像方法建模的，包括我们的，这可能导致图像形成模型中的违规和重建体积中的错误。例如，由于测量中左耳的自阻挡，兔子的右耳没有准确地恢复。
+我们注意到，在该分辨率下离散化和反转图像形成模型的传统方法将需要超过9PB的存储器来存储线性系统的稀疏表示。
+
+    \subsection{Paragraph 14}\label{paragraph-14}
+
+The co-design of a confocal scanning technique and a computationally
+efficient inverse method facilitates fast, high-quality reconstructions
+of hidden objects. To achieve real-time frame rates with C-NLOS imaging,
+three improvements to our current prototype are required. First, to
+reduce acquisition time, a more powerful laser is needed. For eye-safe
+operation, this laser may need to operate in the short-wave infrared
+regime11,12,22. Second, for retroreflective objects, the measurement of
+multiple histograms can be performed in parallel, with minimal
+crosstalk. This property could enable a single-photon avalanche diode
+(SPAD) array and a diffused laser source to acquire the full C-NLOS
+image in a single shot. Third, to improve the computation time, our
+highly parallelizable algorithm could be implemented in a graphics
+processing unit or a field-programmable gate array.
+
+    \subsubsection{第14段}\label{ux7b2c14ux6bb5}
+
+共焦扫描技术和计算高效的反向方法的协同设计有助于快速，高质量地重建隐藏物体。为了使用C-NLOS成像实现实时帧速率，我们需要对当前原型进行三项改进。
++ 首先，为了缩短采集时间，需要更强大的激光器。
+为了安全操作，这种激光器可能需要在短波红外线下工作{[}11,12,22{]}。 +
+其次，对于逆向反射物体，多个直方图的测量可以并行执行，具有最小的串扰。
+该特性可以使单光子雪崩二极管（SPAD）阵列和漫射激光源能够在单次拍摄中获得完整的C-NLOS图像。
++
+第三，为了改善计算时间，我们的高度可并行化算法可以在图形处理单元或现场可编程门阵列中实现。
+
+    \subsection{Paragraph 15}\label{paragraph-15}
+
+The proposed technique thus enables NLOS imaging with conventional
+hardware at much higher speeds, with a smaller memory footprint and
+lower power consumption, over a longer range, under ambient lighting and
+at higher resolution than any existing approach of which we are aware.
+
+    \subsubsection{第15段}\label{ux7b2c15ux6bb5}
+
+因此，所提出的技术能够以更高的速度使用传统硬件进行NLOS成像，具有更小的存储器占用面积和更低的功耗，在更长的范围内，在环境照明下以及比我们所知的任何现有方法更高的分辨率。
+
+    \section{Supplementary Information}\label{supplementary-information}
+
+Confocal non-line-of-sight based on the light-cone transform
+
+    \subsection{Supplementary Methods}\label{supplementary-methods}
+
+补充方法
+
+    \subsubsection{Equipment details}\label{equipment-details}
+
+The time-resolved detector is a PDM series single photon avalanche diode
+(SPAD) from Micro Photon Devices with a 100 µm⇥ 100 µm active area, a
+reported 27 ps timing jitter (100 kHz laser at 675 nm), and 40.9 dark
+counts per second. Detection events are time stamped with 4ps temporal
+resolution using a PicoHarp 300 Time-Correlated Single Photon Counting
+(TCSPC) module. The detected light is focused by a 75mm achromatic
+doublet (Thorlabs AC254-075-A-ML), and filtered using a laser line
+filter (Thorlabs FL670-10). The detection optics are co-axially aligned
+with an active light source using a polarized beamsplitter (Thorlabs
+PBS251). The light source (ALPHALAS PICOPOWER-LD-670-50) consists of a
+670 nm wavelength pulsed laser diode with a reported pulse width of
+30.6ps at a 10MHz repetition rate and 0.11mW average power. A 2-axis
+scanning galvonometer (Thorlabs GVS012) raster scans the illumination
+and detection spots across a wall located approximately 2m from the
+system at an oblique angle. The measured jitter of the entire system is
+approximately 60 ps without the laser line filter, and 200 ps with the
+filter on. We only use the filter for the outdoor experiments to reduce
+ambient light. The increase in jitter is due to the fact that the
+spectral transmission properties of the filter affect the temporal
+characteristics of the imaging system via the time-bandwidth product.16
+An appropriate choice of spectral line filter and pulsed laser could
+mitigate this effect.
+
+    \paragraph{实验装置}\label{ux5b9eux9a8cux88c5ux7f6e}
+
+实验装置包括： + 时间分辨探测器(time-resolved detector14) + Micro Photon
+Devices的PDM系列单光子雪崩二极管（SPAD） +
+有效面积为\(100μm\times 100μm\) + 27 ps定时抖动（675 nm处的100 kHz激光）
++ 每秒40.9的暗计数 + 产品网站: + 国外官网
+http://www.micro-photon-devices.com/Products/Photon-Counters/PDM +
+国内代理 http://www.etsc-tech.com/article-show-39-1829.html + 价格
+
+\begin{itemize}
+\tightlist
+\item
+  检测事件: 时间相关单光子计数器模块(TCSPC)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    PicoHarp 300
+  \item
+    4ps时间分辨率对检测事件加时间戳
+  \item
+    国内代理: http://www.etsc-tech.com/article-show-40-1843.html
+  \item
+    价格
+  \end{itemize}
+\item
+  聚焦, 868.84￥
+
+  \begin{itemize}
+  \tightlist
+  \item
+    75mm消色差双合透镜
+  \item
+    型号: Thorlabs AC254-075-A-ML
+  \item
+    官网
+    https://www.thorlabschina.cn/newgrouppage9.cfm?objectgroup\_id=2696\&pn=AC254-075-A-ML\#3441
+  \item
+    Thorlabs上的账户\&\&密码: gengruixv@163.com \&\& !QAZ2wsx3edc
+  \end{itemize}
+\item
+  滤光 833.38￥
+
+  \begin{itemize}
+  \tightlist
+  \item
+    激光线滤光器
+  \item
+    型号: Thorlabs FL670-10
+  \item
+    https://www.thorlabschina.cn/newgrouppage9.cfm?objectgroup\_id=1001\&pn=FL670-10\#2897
+  \end{itemize}
+\item
+  分束器 2704.04￥
+
+  \begin{itemize}
+  \tightlist
+  \item
+    偏振分束器
+  \item
+    型号： Thorlabs PBS251
+  \item
+    将检测光学系统与有源光源同轴对准
+  \item
+    https://www.thorlabschina.cn/newgrouppage9.cfm?objectgroup\_id=4137\&pn=CCM1-PBS251\#3924
+  \end{itemize}
+\item
+  光源
+
+  \begin{itemize}
+  \tightlist
+  \item
+    由670 nm波长脉冲激光二极管组成
+  \item
+    型号：ALPHALAS PICOPOWER-LD-670-50
+  \item
+    官网
+    http://www.alphalas.com/products/lasers/picosecond-pulse-diode-lasers-with-driver-picopower-ld-series.html
+  \item
+    但没找到代理商
+  \item
+    脉冲宽度为30.6ps
+  \item
+    重复频率为10MHz
+  \item
+    平均功率为0.11mW
+  \end{itemize}
+\item
+  扫描电流计 26020.88￥
+
+  \begin{itemize}
+  \tightlist
+  \item
+    2轴扫描电流计光栅扫描距离系统大约2米的墙壁上的照明和检测点
+  \item
+    型号: Thorlabs GVS012
+  \item
+    通过一个倾斜角度扫描
+  \item
+    https://www.thorlabschina.cn/newgrouppage9.cfm?objectgroup\_id=6057\&pn=GVS012\#7594
+  \end{itemize}
+\item
+  对抖动的说明和处理
+
+  \begin{itemize}
+  \tightlist
+  \item
+    在没有激光线路滤波器的情况下，整个系统的测量抖动约为60 ps
+  \item
+    在滤波器打开时，测得的抖动为200 ps
+  \item
+    仅将滤波器用于室外实验以减少环境光
+  \item
+    抖动的增加是由于滤波器的光谱传输特性通过时间带宽积影响成像系统的时间特性这一事实
+  \item
+    适当选择谱线滤波器和脉冲激光可以减轻这种影响
+  \end{itemize}
+\end{itemize}
+
+    \subsubsection{Challenges with confocal
+scanning}\label{challenges-with-confocal-scanning}
+
+Unlike conventional approaches, a confocalized NLOS system exposes the
+detector to direct reflections. This can be problematic, because the
+overwhelmingly bright contribution of direct light reduces the SNR of
+the indirect signal in two ways. First, after detecting a photon, the
+SPAD sensor becomes inactive for approximately 75 ns and ignores any
+photons that strike the detector for this period of time (commonly
+referred to as the dead time of the device). If the contribution of
+direct light is too strong, this reduces the detection probability of
+indirect photons. Second, approximately 0.1\% of detected photon events
+produce a secondary event due to an effect known as afterpulsing. The
+contribution of direct photons therefore increases the number of
+spurious photons detected by the SPAD, further reducing the SNR of the
+indirect signal. To avoid the negative effects of a strong direct
+signal, a time-gated SPAD could be used for detection to gate out
+photons due to direct light.16 Given that our SPAD operates in
+free-running mode, we instead illuminate and image two slightly
+different points on a wall to reduce the contribution of direct light.
+The distance between these points should be sufficiently small so as to
+not affect the confocal image formation model.
+
+    \paragraph{共焦扫描的挑战}\label{ux5171ux7126ux626bux63cfux7684ux6311ux6218}
+
+共焦NLOS系统会降低间接信号的SNR +
+与传统方法不同，共焦NLOS系统使探测器暴露于直接反射 +
+直接光的绝对明亮会以两种方式降低间接信号的SNR +
+首先，在检测到光子之后，SPAD传感器变为无效约75ns并忽略在这段时间内撞击检测器的任何光子（通常称为器件的死区时间）。如果直射光的贡献太强，则会降低间接光子的检测概率。
++
+其次，由于称为后脉冲的效应，大约0.1％的检测到的光子事件产生了二次事件。
++
+因此，直接光子的贡献增加了SPAD检测到的伪光子的数量，进一步降低了间接信号的SNR。
+降低强直接信号的负面影响的方法： +
+使用时间选通SPAD来检测而对光子进行门控(due to direct light). +
+鉴于我们的SPAD在自由运行模式下运行，我们在墙上照亮并成像两个稍微不同的点，以减少直射光的贡献。
+这些点之间的距离应足够小，以免影响共焦图像形成模型。
+
+    \subsubsection{System calibration}\label{system-calibration}
+
+The first calibration step involves aligning the detector and light
+source by adjusting the position of the beamsplitter to maximize the
+photon count rate. When perfectly aligned, the strong direct signal
+significantly reduces the number of indirect photons detected by the
+SPAD. Therefore, the second step involves slightly adjusting the
+position of the beamsplitter to decrease the direct photon counts and
+increase the indirect photon counts originating from a hidden
+retroreflector placed within the scene (e.g., the exit sign). The SPAD
+detected between 0.29 and 1 million counts per second for all
+experiments (i.e., the number of detected events ranged between 2.9\%
+and 10\% of the total number of pulses). For the final step, the system
+scans a 6 \(\times\) 6 grid of points on the wall and uses the time of
+arrival of direct photons and known galvanometer mirror angles to
+compute the relative position and orientation of the wall relative to
+the system.
+
+    \paragraph{系统校准}\label{ux7cfbux7edfux6821ux51c6}
+
+系统校准分为三步: + step1:
+通过调整分束器的位置来对准检测器和光源，以使光子计数率最大化。
+
+当完美对齐时，强直接信号显着减少了SPAD检测到的间接光子的数量。 + step2:
+稍微调整分束器的位置以减少直接光子计数并增加源自放置在场景内的隐藏后向反射器（例如，出口标志）的间接光子计数。
+
+对于所有实验，SPAD检测每秒0.29至100万次计数（即，检测到的事件的数量在脉冲总数的2.9％至10％之间）。
+
+\begin{itemize}
+\tightlist
+\item
+  step3: 系统扫描墙上的6 *
+  6网格点，并使用直接光子的到达时间和已知的检流计镜角度来计算墙相对于系统的相对位置和方向。
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+    \subsubsection{Acquisition procedure}\label{acquisition-procedure}
+
+The system scans 64 \(\times\) 64 equidistant points on awall for indoor
+experiments,and32 \(\times\) 32 points for the outdoor experiment. At a
+10MHz repetition rate, the PicoHarp 300 returns unprocessed histograms
+containing25,000 bins with a temporal resolution of 4 ps per bin. The
+acquired histograms are temporally aligned such that the direct pulses
+appear at time t =0. Histograms are then trimmed to either 2048 bins for
+indoor experiments or 4096 bins for the outdoor experiment. The ﬁrst 600
+bins are set to 0 to remove the direct component. The histograms are
+then downsampled by a factor of 4 to either 512 or 1024 bins before
+processing,where each bin now has a temporal resolution of 16ps. The
+acquisition time for each histogram is either 0.1sor 1s, as indicated
+for each respective experiment.
+
+    \paragraph{(1)获得程序}\label{ux83b7ux5f97ux7a0bux5e8f}
+
+\begin{itemize}
+\tightlist
+\item
+  扫描墙的范围
+
+  \begin{itemize}
+  \tightlist
+  \item
+    系统扫描墙上64 * 64等距点进行室内实验，32 * 32点进行室外实验
+  \end{itemize}
+\item
+  PicoHarp 300 时间相关单光子计数器模块(TCSPC)(检测事件)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    在10MHz的重复频率下，PicoHarp
+    300返回包含25,000个二进制数据的未处理直方图，每个二进制数据的时间分辨率为4
+    ps。
+  \item
+    所获取的直方图在时间上对齐，使得直接脉冲出现在时间t = 0。
+  \item
+    将直方图修剪为2048个二进制数据用于室内实验 或
+    4096个二进制数据用于室外实验。
+  \item
+    将前600个二进制文件设置为0以移除直接分量。
+  \item
+    然后在处理之前将直方图下采样4倍至512或1024个二进制数据，其中每个区间现在具有16ps的时间分辨率。
+  \item
+    每个直方图的采集时间为0.1μs1s，如每个相应实验所示。
+  \end{itemize}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c}{\PYZpc{}   代码段1}
+        \PY{c}{\PYZpc{}   选择隐藏场景}
+        \PY{c}{\PYZpc{}   1 \PYZhy{} resolution chart at 40cm from wall}
+        \PY{c}{\PYZpc{}   2 \PYZhy{} resolution chart at 65cm from wall}
+        \PY{c}{\PYZpc{}   3 \PYZhy{} dot chart at 40cm from wall}
+        \PY{c}{\PYZpc{}   4 \PYZhy{} dot chart at 65cm from wall}
+        \PY{c}{\PYZpc{}   5 \PYZhy{} mannequin}
+        \PY{c}{\PYZpc{}   6 \PYZhy{} exit sign}
+        \PY{c}{\PYZpc{}   7 \PYZhy{} \PYZdq{}SU\PYZdq{} scene (default)}
+        \PY{c}{\PYZpc{}   8 \PYZhy{} outdoor \PYZdq{}S\PYZdq{}}
+        \PY{c}{\PYZpc{}   9 \PYZhy{} diffuse \PYZdq{}S\PYZdq{}}
+        \PY{n}{scene} \PY{p}{=} \PY{l+m+mi}{2}\PY{p}{;} 
+        
+        \PY{c}{\PYZpc{} Constants}
+        \PY{n}{bin\PYZus{}resolution} \PY{p}{=} \PY{l+m+mf}{4e\PYZhy{}12}\PY{p}{;} \PY{c}{\PYZpc{} Native bin resolution for SPAD is 4 ps}
+        \PY{n}{c}              \PY{p}{=} \PY{l+m+mf}{3e8}\PY{p}{;}   \PY{c}{\PYZpc{} Speed of light (meters per second)}
+        
+        \PY{c}{\PYZpc{} Adjustable parameters}
+        \PY{n}{isbackprop} \PY{p}{=} \PY{l+m+mi}{0}\PY{p}{;}         \PY{c}{\PYZpc{} Toggle backprojection，切换为后向投影}
+        \PY{n}{isdiffuse}  \PY{p}{=} \PY{l+m+mi}{0}\PY{p}{;}         \PY{c}{\PYZpc{} Toggle diffuse reflection，切换漫反射/直接反射}
+        \PY{n}{K}          \PY{p}{=} \PY{l+m+mi}{2}\PY{p}{;}         \PY{c}{\PYZpc{} Downsample data to (4 ps) * 2\PYZca{}K = 16 ps for K = 2,降采样四倍，512或1024个二进制数据，其中每个区间现在具有16ps的时间分辨率}
+        
+        \PY{n}{snr}        \PY{p}{=} \PY{l+m+mf}{8e\PYZhy{}1}\PY{p}{;}      \PY{c}{\PYZpc{} SNR value，论文和支撑材料中表示为α}
+        \PY{n}{z\PYZus{}trim}     \PY{p}{=} \PY{l+m+mi}{600}\PY{p}{;}       \PY{c}{\PYZpc{} Set first 600 bins to zero，前600个二进制数据设置为0，以移除直接分量}
+        
+        \PY{c}{\PYZpc{}更改工作路径。此notebook与所需数据和函数不在同一目录下}
+        \PY{n}{cd}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{.\PYZbs{}confocal\PYZus{}nlos\PYZus{}code\PYZsq{}}\PY{p}{)}
+        \PY{c}{\PYZpc{} Load scene \PYZam{} set visualization parameter}
+        \PY{k}{switch} \PY{n}{scene}
+            \PY{k}{case} \PY{p}{\PYZob{}}\PY{l+m+mi}{1}\PY{p}{\PYZcb{}}
+                \PY{n}{load} \PY{n}{data\PYZus{}resolution\PYZus{}chart\PYZus{}40cm}\PY{p}{.}\PY{n}{mat}
+                \PY{n}{z\PYZus{}offset} \PY{p}{=} \PY{l+m+mi}{350}\PY{p}{;}
+            \PY{k}{case} \PY{p}{\PYZob{}}\PY{l+m+mi}{2}\PY{p}{\PYZcb{}}
+                \PY{n}{load} \PY{n}{data\PYZus{}resolution\PYZus{}chart\PYZus{}65cm}\PY{p}{.}\PY{n}{mat}
+                \PY{n}{z\PYZus{}offset} \PY{p}{=} \PY{l+m+mi}{700}\PY{p}{;}
+            \PY{k}{case} \PY{p}{\PYZob{}}\PY{l+m+mi}{3}\PY{p}{\PYZcb{}}
+                \PY{n}{load} \PY{n}{data\PYZus{}dot\PYZus{}chart\PYZus{}40cm}\PY{p}{.}\PY{n}{mat}
+                \PY{n}{z\PYZus{}offset} \PY{p}{=} \PY{l+m+mi}{350}\PY{p}{;}
+            \PY{k}{case} \PY{p}{\PYZob{}}\PY{l+m+mi}{4}\PY{p}{\PYZcb{}}
+                \PY{n}{load} \PY{n}{data\PYZus{}dot\PYZus{}chart\PYZus{}65cm}\PY{p}{.}\PY{n}{mat}
+                \PY{n}{z\PYZus{}offset} \PY{p}{=} \PY{l+m+mi}{700}\PY{p}{;}
+        	\PY{k}{case} \PY{p}{\PYZob{}}\PY{l+m+mi}{5}\PY{p}{\PYZcb{}}
+                \PY{n}{load} \PY{n}{data\PYZus{}mannequin}\PY{p}{.}\PY{n}{mat}
+                \PY{n}{z\PYZus{}offset} \PY{p}{=} \PY{l+m+mi}{300}\PY{p}{;}
+            \PY{k}{case} \PY{p}{\PYZob{}}\PY{l+m+mi}{6}\PY{p}{\PYZcb{}}
+                \PY{n}{load} \PY{n}{data\PYZus{}exit\PYZus{}sign}\PY{p}{.}\PY{n}{mat}
+                \PY{n}{z\PYZus{}offset} \PY{p}{=} \PY{l+m+mi}{600}\PY{p}{;}
+            \PY{k}{case} \PY{p}{\PYZob{}}\PY{l+m+mi}{7}\PY{p}{\PYZcb{}}
+                \PY{n}{load} \PY{n}{data\PYZus{}s\PYZus{}u}\PY{p}{.}\PY{n}{mat}
+                \PY{n}{z\PYZus{}offset} \PY{p}{=} \PY{l+m+mi}{800}\PY{p}{;}
+            \PY{k}{case} \PY{p}{\PYZob{}}\PY{l+m+mi}{8}\PY{p}{\PYZcb{}}
+                \PY{n}{load} \PY{n}{data\PYZus{}outdoor\PYZus{}s}\PY{p}{.}\PY{n}{mat}
+                \PY{n}{z\PYZus{}offset} \PY{p}{=} \PY{l+m+mi}{700}\PY{p}{;}
+            \PY{k}{case} \PY{p}{\PYZob{}}\PY{l+m+mi}{9}\PY{p}{\PYZcb{}}
+                \PY{n}{load} \PY{n}{data\PYZus{}diffuse\PYZus{}s}\PY{p}{.}\PY{n}{mat}
+                \PY{n}{z\PYZus{}offset} \PY{p}{=} \PY{l+m+mi}{100}\PY{p}{;}
+                
+                \PY{c}{\PYZpc{} Because the scene is diffuse, toggle the diffuse flag and }
+                \PY{c}{\PYZpc{} adjust SNR value correspondingly.}
+                \PY{c}{\PYZpc{} 只有场景9下才会切换为漫反射模式}
+                \PY{n}{isdiffuse} \PY{p}{=} \PY{l+m+mi}{1}\PY{p}{;}
+                
+                \PY{c}{\PYZpc{} 漫反射模式下信噪比降低}
+                \PY{n}{snr} \PY{p}{=} \PY{n}{snr}\PY{o}{.*}\PY{l+m+mf}{1e\PYZhy{}1}\PY{p}{;}
+        \PY{k}{end}
+        
+        \PY{c}{\PYZpc{} rect\PYZus{}data: Sensor接收到的反射数据，相当于论文中的\PYZbs{}tau}
+        \PY{n}{N} \PY{p}{=} \PY{n+nb}{size}\PY{p}{(}\PY{n}{rect\PYZus{}data}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}        \PY{c}{\PYZpc{} Spatial resolution of data，反射数据的空间维度}
+        \PY{n}{M} \PY{p}{=} \PY{n+nb}{size}\PY{p}{(}\PY{n}{rect\PYZus{}data}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{;}        \PY{c}{\PYZpc{} Temporal resolution of data， 反射数据的时间维度}
+        \PY{n}{range} \PY{p}{=} \PY{n}{M}\PY{o}{.*}\PY{n}{c}\PY{o}{.*}\PY{n}{bin\PYZus{}resolution}\PY{p}{;} \PY{c}{\PYZpc{} Maximum range for histogram(单位:长度单位), M:单位时间数；bin\PYZus{}resolution:单位时间长度;c:光速}
+        
+        
+        \PY{c}{\PYZpc{} Downsample data to 16 picoseconds}
+        \PY{k}{for} \PY{n}{k} \PY{p}{=} \PY{l+m+mi}{1}\PY{p}{:}\PY{n}{K}
+            \PY{n}{M} \PY{p}{=} \PY{n}{M}\PY{o}{./}\PY{l+m+mi}{2}\PY{p}{;}                                                    \PY{c}{\PYZpc{} 单位时间数变为1/2}
+            \PY{n}{bin\PYZus{}resolution} \PY{p}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{bin\PYZus{}resolution}\PY{p}{;}                           \PY{c}{\PYZpc{} 单位时间长度增加一倍}
+            \PY{c}{\PYZpc{} 因为单位时间数变为1/2，即采样率降低了一倍。故bin\PYZus{}resolution(两次采样之间的间隔时间)变为之前两倍}
+            \PY{c}{\PYZpc{} 假设此时rect\PYZus{}data = N*M*Q}
+            \PY{c}{\PYZpc{} 则rect\PYZus{}data(:,:,1:2:end) = N*M*Q/2}
+            \PY{c}{\PYZpc{} 则rect\PYZus{}data(:,:,2:2:end) = N*M*Q/2}
+            \PY{c}{\PYZpc{} 更新后rect\PYZus{}data = N*M*Q/2 }
+            \PY{c}{\PYZpc{} Q为时间维度，故实现了2倍的下采样率(循环一次)}
+            \PY{n}{rect\PYZus{}data} \PY{p}{=} \PY{n}{rect\PYZus{}data}\PY{p}{(}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{:}\PY{k}{end}\PY{p}{)} \PY{o}{+} \PY{n}{rect\PYZus{}data}\PY{p}{(}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{:}\PY{k}{end}\PY{p}{)}\PY{p}{;} \PY{c}{\PYZpc{} 将前后两个相加，类似于规则是\PYZdq{}相加\PYZdq{}的pooling}
+            \PY{c}{\PYZpc{} 采样率降低一倍，故z\PYZus{}trim（前z\PYZus{}trim个采样点时刻的值需要舍弃）减小两倍，round四舍五入取整}
+            \PY{n}{z\PYZus{}trim} \PY{p}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{z\PYZus{}trim}\PY{o}{./}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{;}
+            \PY{c}{\PYZpc{} offset存疑！}
+            \PY{n}{z\PYZus{}offset} \PY{p}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{z\PYZus{}offset}\PY{o}{./}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{;}
+        \PY{k}{end}
+        
+        \PY{c}{\PYZpc{} 前z\PYZus{}trim时刻置零以去除直接影响}
+        \PY{c}{\PYZpc{} Set first group of histogram bins to zero (to remove direct component)}
+        \PY{n}{rect\PYZus{}data}\PY{p}{(}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{n}{z\PYZus{}trim}\PY{p}{)} \PY{p}{=} \PY{l+m+mi}{0}\PY{p}{;}
+        
+        \PY{c}{\PYZpc{}代码段1到此为止，接下来开始构建核函数}
+        
+        \PY{n}{display}\PY{p}{(}\PYZdq{}\PY{n}{This} \PY{n}{cell} \PY{n}{run} \PY{n}{successfully}\PYZdq{}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+    "This cell run successfully"
+
+
+
+    \end{Verbatim}
+
+    代码段1遇到的问题: + 什么是后像投影？？ + isbackprop = 0; \% Toggle
+backprojection，切换为后向投影 + 状态: 已有解决方法,尚未解决 +
+论文/支撑材料的后半部分有详细说明 + offset代表着什么？ + z\_offset =
+round(z\_offset./2); + 不同反射数据的z\_offset也不同 
+
+    \subsubsection{Validating radiometric
+falloff}\label{validating-radiometric-falloff}
+
+To verify the radiometric intensity falloff in the proposed image
+formation model, we measure the intensity of a small patch behind the
+wall while varying the distance between the NLOS patch and the sampled
+wall. Figure 1 shows the intensity response for several different
+materials: a diffuse patch and retroreflective patches of different
+grades (``engineering'' grade and ``diamond'' grade). For the diffuse
+patch, measurements (blue circles) closely match the predicted
+\(\frac{1}{r^{4}}\) falloff (blue line), where r is the distance between
+patch and wall. Similarly, the diamond grade retroreflective material
+(red circles) closely matches the predicted \(\frac{1}{r^{2}}\)falloff
+(red line). Lower-quality retroreflectors, such as the engineering grade
+retroreflective material or most retroreflective paints, exhibit a
+falloff that is somewhere between diffuse and perfectly retroreflective.
+The engineering grade retroreflective material (green circles), for
+example, can be modeled by a falloff term of \(\frac{1}{r^{2.3}}\)
+(green line).
+
+ Figure1 Validating radiometric falloff
+
+    \paragraph{验证辐射衰减}\label{ux9a8cux8bc1ux8f90ux5c04ux8870ux51cf}
+
+\begin{itemize}
+\tightlist
+\item
+  验证方案：
+
+  \begin{itemize}
+  \tightlist
+  \item
+    为了验证所提出的图像形成模型中的辐射强度衰减，我们改变NLOS小贴片和采样壁之间的距离，并测量墙后面的小贴片上的(辐射)强度。
+  \end{itemize}
+\item
+  验证结果:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    图1显示了几种不同材料的强度响应：不同等级的漫反射贴片和逆向反射贴片（``工程''级和``钻石级''）。
+  \end{itemize}
+\item
+  验证结论：
+
+  \begin{itemize}
+  \tightlist
+  \item
+    漫反射贴片(patch): \(\frac{1}{r^{4}}\)衰减(蓝色线)
+  \item
+    钻石级逆向反射贴片(材料)(完全逆向反射):
+    \(\frac{1}{r^{2}}\)衰减(红色线)
+  \item
+    较低质量的逆向反射材料，例如工程级逆向反射材料或大多数逆向反射涂料，表现出在漫射和完全逆向反射之间的衰减。
+
+    \begin{itemize}
+    \tightlist
+    \item
+      比如, 工程级逆向反射材料: \(\frac{1}{r^{2.3}}\)衰减 (绿色线)
+    \end{itemize}
+  \item
+    注: r是贴片材料和墙之间的距离
+  \end{itemize}
+\end{itemize}
+
+ 图1 辐射强度衰减的验证
+
+    \subsubsection{Image formation}\label{image-formation}
+
+We briefly review the conventional NLOS formulation that models the
+indirect light transport that occurs between two different points on a
+wall. Several simplifying assumptions are made in the derivation of this
+image formation model (see below), resulting in an approximation of the
+physical light transport process. We then introduce the confocal NLOS
+image formation model, followed by the light cone transform and a
+discretization of the proposed model.
+
+    \subparagraph{图像的形成}\label{ux56feux50cfux7684ux5f62ux6210}
+
+这一部分主要包括如下内容 + 简要回顾了传统的NLOS公式 +
+该公式模拟了墙壁上两个不同点之间发生的间接光传输 +
+在推导该图像形成模型（见下文）中进行了几个简化假设，从而得到物理光传输过程的近似值
++ 介绍共焦NLOS图像形成模型 + 光锥变换 + 所提出模型的离散化
+
+    \paragraph{Conventional non-line-of-sight
+imaging}\label{conventional-non-line-of-sight-imaging}
+
+As illustrated in Figure 2, conventional NLOS imaging records a
+transient image{[}14,25--27{]} of a flat wall with a time-resolved
+detector while sequentially illuminating points on the wall with an
+ultra-short laser pulse.14--19 The geometry and albedo of the wall is
+assumed to be known or it can be scanned in a pre-processing step.
+Without loss of generality, we model the wall as a reference plane at
+position z = 0. The recorded transient image τ is
+
+\begin{verbatim}
+equation (5)
+\end{verbatim}
+
+\[\tau(x',y',t)=\int\int\int_{\Omega}\frac{1}{r_{l}^{2}r^{2}}\rho(x,y,z)\delta(\sqrt{(x'-x)^{2}+(y'-y)^{2}+z^{2}}+\sqrt{(x_{l}-x)^{2}+(y_{l}^{2}-y^{2})+z^{2}}-tc)dxdydz\]
+Here, \(\rho\) is the sought-after albedo of the hidden scene at each
+point in the three-dimensional half-space Ω satisfying z \textgreater{}
+0. The transient image is recorded while the light source illuminates
+position x1,y1 on the wall with an ultrashort pulse. This pulse is
+diffusely reflected off the wall and then scattered by the hidden scene
+back towards the wall. The radiometric term \(\frac{1}{r_{l}^{2}r^{2}}\)
+models the square distance falloff using the distance \(r_l\) between
+\(x_l\),\(y_l\) and some hidden scene point x,y,z, as well as the
+distance r from that point to the sampled detector position on the wall
+x',y'. This equation can be discretized as \(\tau = A\rho\) and solved
+with an iterative numerical approach that does not require A to be
+directly inverted.
+
+The conventional NLOS image formation model makes the following
+assumptions: there is only single scattering behind the wall (i.e., no
+inter-reflections in the hidden scene parts), and there are no
+occlusions between hidden scene parts. We also assume surfaces reflect
+light isotropically (i.e., the ratio of reflected radiance is
+independent of both the incident light direction and outgoing view
+direction), in order to avoid the added complexity of introducing
+Lambert's cosine terms to model diffuse surface reflections.
+
+    \subparagraph{传统非视距成像}\label{ux4f20ux7edfux975eux89c6ux8dddux6210ux50cf}
+
+如图2所示，传统的NLOS成像使用时间分辨探测器记录平面墙的瞬态图像{[}14,25-27{]}，同时使用超短激光脉冲顺序照射墙壁上的点{[}14-19{]}.假设墙壁的几何形状和反照率是已知的或是可以在预处理步骤中扫描得到。
+在不失一般性的情况下，我们将壁模型化为位置z =
+0处的参考平面。记录的瞬态图像τ是
+
+\begin{verbatim}
+equation (5)
+\end{verbatim}
+
+\[\tau(x',y',t)=\int\int\int_{\Omega}\frac{1}{r_{l}^{2}r^{2}}\rho(x,y,z)\delta(\sqrt{(x'-x)^{2}+(y'-y)^{2}+z^{2}}+\sqrt{(x_{l}-x)^{2}+(y_{l}^{2}-y^{2})+z^{2}}-tc)dxdydz\]
+
+在这里，\$
+\rho \(是在三维的半空间Ω中满足z> 0的每个点处的隐藏场景的抢占反照率。记录瞬态图像，同时光源用超短脉冲照射墙壁上的位置x1，y1。该脉冲从墙壁漫反射，然后被隐藏的场景散射回墙壁。辐射度项\)
+\frac{1}{r_ {l}^{2}r^{2}} \(使用\)
+x\_l\(，\)y\_l\(和一些隐藏的场景点x,y,z之间的距离\)r\_l
+\(以及从该点到墙壁x'，y'上的采样探测器位置的距离r模拟平方距离衰减。该等式可以离散化为\)
+\tau = A \rho \$，并通过迭代数值方法求解，该方法不需要直接反转A.
+
+传统的NLOS图像形成模型做出以下假设： +
+在墙后面仅存在单个散射（即，隐藏的场景部分中没有相互反射） +
+在隐藏的场景部分之间没有遮挡 +
+假设表面各向同性地反射光（即，反射辐射的比率与入射光方向和出射视图方向无关），以避免引入朗伯的余弦项以模拟漫反射表面反射的额外复杂性。
+
+    \paragraph{(2)Confocal non-line-of-sight
+imaging}\label{confocal-non-line-of-sight-imaging}
+
+Instead of exhaustively scanning different combinations of light source
+positions xl,yl and detector positions x',y' on the wall, confocal NLOS
+imaging is a sequential scanning approach where the light source and a
+single detector are co-axial, or ``confocalized''. Data recorded with a
+confocal NLOS setup thus represents a subset of the samples required by
+conventional NLOS imaging. One of the primary benefits of the confocal
+setup is that it is consistent with existing scanned LIDAR systems that
+often use avalanche photodiodes (APDs) or single photon avalanche diodes
+(SPADs). The proposed signal processing approach to NLOS imaging may
+therefore be compatible with many existing scanners.
+
+Here, the transient image on the wall is given by
+
+\[\tau(x',y',t)=\int\int\int_{\Omega}\frac{1}{r^{4}}\rho(x,y,z)\delta(2\sqrt{(x'-x)^{2}+(y'-y)^{2}+z^{2}}-tc)dxdydz\]
+equation (6)
+
+This image formation model shares the same assumptions as Equation (5)
+(i.e., no multi-bounce transport, no occlusions, and isotropic
+scattering).
+
+Equation (6) is a laterally (i.e., in x and y) shift-invariant
+convolution. The convolution kernel is the surface of a spatio-temporal
+4D hypercone \[x^{2}+y^{2}+z^{2}-(\frac{tc}{2})^{2}=0\]
+
+This formulation for light propagation is similar to Minkowski's light
+cone used in special relativity{[}28{]},except that it models a
+spherical wavefront propagating at half the speed of light.
+
+\begin{itemize}
+\tightlist
+\item
+  The Euclidean norm (also called the vector magnitude, Euclidean
+  length, or 2-norm) of a vector v with N elements is defined by
+  \[\|v\|=\sqrt{\sum^{N}_{k=1}|v_{k}|^{2}}\]
+\end{itemize}
+
+    \subparagraph{共焦非视距成像}\label{ux5171ux7126ux975eux89c6ux8dddux6210ux50cf}
+
+共焦NLOS成像是顺序扫描方法，而不是彻底扫描壁上的光源位置x1，y1和探测器位置x'，y'的不同组合。其中光源和单个探测器是同轴的，或``共焦的''。因此，用共焦NLOS设置记录的数据是传统NLOS成像所需的样本的子集。共焦设置的主要优点之一是它与通常使用雪崩光电二极管（APD）或单光子雪崩二极管（SPAD）的现有扫描LIDAR系统一致。
+因此，所提出的NLOS成像的信号处理方法可以与许多现有的扫描仪兼容。
+
+这里，墙上的瞬态图像由下式给出
+
+\[\tau(x',y',t)=\int\int\int_{\Omega}\frac{1}{r^{4}}\rho(x,y,z)\delta(2\sqrt{(x'-x)^{2}+(y'-y)^{2}+z^{2}}-tc)dxdydz\]
+equation (6)
+
+该图像形成模型与等式（5）具有相同的假设（即，没有多次反弹传输，没有遮挡和各向同性散射）。
+
+等式（6）是横向（即，在x和y中）移位不变卷积。 卷积核是时空4D超锥的表面
+\[x^{2}+y^{2}+z^{2}-(\frac{tc}{2})^{2}=0\]
+
+这种用于光传播的公式类似于狭义相对论中使用的Minkowski光锥{[}28{]}，不同之处在于它模拟了以光速的一半传播的球面波。
+
+\subparagraph{补充:
+二范数(欧几里得范数)}\label{ux8865ux5145-ux4e8cux8303ux6570ux6b27ux51e0ux91ccux5f97ux8303ux6570}
+
+The Euclidean norm (also called the vector magnitude, Euclidean length,
+or 2-norm) of a vector v with N elements is defined by
+\[\|v\|=\sqrt{\sum^{N}_{k=1}|v_{k}|^{2}}\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c}{\PYZpc{} 代码段2}
+        \PY{c}{\PYZpc{} Define NLOS blur kernel }
+        \PY{n}{psf} \PY{p}{=} \PY{n}{definePsf}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{M}\PY{p}{,}\PY{n}{width}\PY{o}{./}\PY{n}{range}\PY{p}{)}\PY{p}{;}
+        \PY{c}{\PYZpc{} 函数代码如下，在jupter notebook中matlab函数文件需要单独存放}
+        \PY{c}{\PYZpc{} 函数位置 \PYZdq{}.\PYZbs{}confocal\PYZus{}nlos\PYZus{}code\PYZbs{}definePsf.m\PYZdq{}}
+        \PY{c}{\PYZpc{} function psf = definePsf(U,V,slope)}
+        \PY{c}{\PYZpc{}     \PYZpc{} psf = definePsf(N,M,width./range);}
+        \PY{c}{\PYZpc{}     \PYZpc{} input:U(N)\PYZhy{}\PYZhy{}Spatial resolution of data，反射数据的空间维度,64}
+        \PY{c}{\PYZpc{}     \PYZpc{}       V(M)\PYZhy{}\PYZhy{}Temporal resolution of data， 反射数据的时间维度,512}
+        \PY{c}{\PYZpc{}     \PYZpc{}       slope=width./range\PYZhy{}\PYZhy{}}
+        \PY{c}{\PYZpc{}     \PYZpc{}       range = M.*c.*bin\PYZus{}resolution; \PYZpc{} Maximum range for histogram(单位:长度单位),}
+        \PY{c}{\PYZpc{}     \PYZpc{}       width = ？？暂时不清楚，有可能是物体到墙之间的距离(单位m)( we predict lateral resolutions of approx. 2cmand 3.1cmwhen the NLOS target is z = 40cm and z = 65cm awayfromthewall,respectively. )}
+        \PY{c}{\PYZpc{}     \PYZpc{}       slope: 斜率相关，具体含义未知}
+        \PY{c}{\PYZpc{}     \PYZpc{} Local function to computeD NLOS blur kernel}
+        
+        \PY{c}{\PYZpc{}     x = linspace(\PYZhy{}1,1,2.*U);         \PYZpc{} 空间维度1*128}
+        \PY{c}{\PYZpc{}     y = linspace(\PYZhy{}1,1,2.*U);         \PYZpc{} 空间维度1*128}
+        \PY{c}{\PYZpc{}     z = linspace(0,2,2.*V);          \PYZpc{} 时间维度1*1024}
+        \PY{c}{\PYZpc{}     [grid\PYZus{}z,grid\PYZus{}y,grid\PYZus{}x] = ndgrid(z,y,x);      \PYZpc{}均为1024*128*128}
+        \PY{c}{\PYZpc{}     \PYZpc{} 类比三维作图时的meshgrid，[grid\PYZus{}z,grid\PYZus{}y,grid\PYZus{}x]构成了3D网格，每个(grid\PYZus{}x,grid\PYZus{}y,grid\PYZus{}z)构成一组自变量，对应一个函数}
+        \PY{c}{\PYZpc{}     \PYZpc{} Define PSF}
+        \PY{c}{\PYZpc{}     psf = abs(((4.*slope).\PYZca{}2).*(grid\PYZus{}x.\PYZca{}2 + grid\PYZus{}y.\PYZca{}2) \PYZhy{} grid\PYZus{}z);           \PYZpc{}  维度1024*128*128}
+        \PY{c}{\PYZpc{}     \PYZpc{} min(psf,[],1): 1*128*128, 即维度1(时间维度)上的最小值，即每个空间点(共128*128)对应的所有时刻(1024个时刻)的最小值}
+        \PY{c}{\PYZpc{}     \PYZpc{} [2.*V 1 1]\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}[1024,1,1]}
+        \PY{c}{\PYZpc{}     \PYZpc{} repmat(min(psf,[],1),[2.*V 1 1])\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}1024*128*128}
+        \PY{c}{\PYZpc{}     \PYZpc{} psf == repmat(min(psf,[],1),[2.*V 1 1]) \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}1024*128*128, 其中，共至少有128*128个1}
+        \PY{c}{\PYZpc{}     \PYZpc{} 相当于1024*128*128的长方体，从底面128*128的每个点取其一列(1024个点)，在从1024个点中取一个最小值点；}
+        \PY{c}{\PYZpc{}     \PYZpc{} 再把这128*128个最小值点重新复制成1024*1024*128的长方体，然后将这个长方体与最初的长方体做比较；值相同的位置置为1，不同置为0}
+        \PY{c}{\PYZpc{}     \PYZpc{}总的效果：psf中最小值变为了1，其余都是0}
+        \PY{c}{\PYZpc{}     psf = double(psf == repmat(min(psf,[],1),[2.*V 1 1]));}
+        \PY{c}{\PYZpc{}     \PYZpc{} psf(:,U,U)即新的长方体的一条高}
+        \PY{c}{\PYZpc{}     \PYZpc{} 如前所述，sum(psf(:,U,U))为这条高上最小值的数量，极有可能为1且至少为1，}
+        \PY{c}{\PYZpc{}     \PYZpc{} 1024*1024*128}
+        \PY{c}{\PYZpc{}     psf = psf./sum(psf(:,U,U));}
+        \PY{c}{\PYZpc{}     \PYZpc{} n = norm(v) returns the Euclidean norm of vector v. This norm is also called the 2\PYZhy{}norm, vector magnitude, or Euclidean length.}
+        \PY{c}{\PYZpc{}     \PYZpc{} 大概率有norm(psf(:)) = \PYZbs{}sqrt\PYZob{}1\PYZca{}2+1\PYZca{}2+...+1\PYZca{}2\PYZcb{}=128}
+        \PY{c}{\PYZpc{}     psf = psf./norm(psf(:));}
+        \PY{c}{\PYZpc{}     \PYZpc{} 循环交换行和列，原因未知}
+        \PY{c}{\PYZpc{}     psf = circshift(psf,[0 U U]);}
+        \PY{c}{\PYZpc{} end}
+        
+        \PY{n}{display}\PY{p}{(}\PYZdq{}\PY{n}{This} \PY{n}{cell} \PY{n}{run} \PY{n}{successfully}\PYZdq{}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+    "This cell run successfully"
+
+
+
+    \end{Verbatim}
+
+    代码段2遇到的问题: + psf定义是为什么是这样？ + psf =
+abs(((4.\emph{slope).\^{}2).}(grid\_x.\^{}2 + grid\_y.\^{}2) - grid\_z);
+\% 维度1024\emph{128}128 + 存疑，论文支撑材料都没有 +
+psf定义的后面各个步骤的原因 +
+比如为什么要找最小值？为什么归一化?为什么那样循环？
+
+\begin{verbatim}
+      </font>
+\end{verbatim}
+
+    \paragraph{Dirac delta identity}\label{dirac-delta-identity}
+
+The image formation model of Equation (6) can be rewritten in a more
+convenient form by squaring and scaling the arguments of the Dirac delta
+with the following identity:
+
+ equation (8)
+
+where we denote x = (x,y,z) and x0 = (x0,y0,0) for simplicity.
+
+Proof: The Dirac delta function can be expressed as the limit of a
+sequence of normalized functions{[}30{]}
+\[\delta(x)=\lim_{\epsilon \to 0^{+}}k_{\epsilon}(x)=\lim_{\epsilon \to 0^{+}}\frac{1}{\epsilon}k(\frac{x}{\epsilon})\]
+For example, the limit of a sequence of normalized hat functions (i.e.,
+k(x) = max(1-\textbar{}x\textbar{},0)) is the Dirac delta function. The
+following uses this definition and a change of variables,
+\(\epsilon=\epsilon^{'}\frac{4}{2||x'-x||_{2}+tc}\), to derive Equation
+(8):
+
+ equation (10)
+
+    \subparagraph{\texorpdfstring{狄拉克\(\delta\)恒等式}{狄拉克\textbackslash{}delta恒等式}}\label{ux72c4ux62c9ux514bdeltaux6052ux7b49ux5f0f}
+
+等式（6）的图像形成模型可以通过使用以下标识对狄拉克\(\delta\)等式进行平方和缩放来以更方便的形式重写：
+
+ equation (8)
+
+其中我们表示x =（x，y，z）和x0 =（x0，y0,0）以对形式进行简化。
+
+证: 狄拉克δ函数可以表示为一系列归一化函数的极限{[}30{]}
+
+\[\delta(x)=\lim_{\epsilon \to 0^{+}}k_{\epsilon}(x)=\lim_{\epsilon \to 0^{+}}\frac{1}{\epsilon}k(\frac{x}{\epsilon})\]
+
+例如，归一化的帽函数序列的极限（即，k（x）= max（1- \textbar{} x
+\textbar{}，0））是狄拉克δ函数。 以下使用此定义并更改变量\$ \epsilon =
+\epsilon' \frac {4} {2||x'-x||_{2} + tc}\$，以导出等式（8）：
+
+ equation (10)
+
+    \paragraph{Radiometric considerations}\label{radiometric-considerations}
+
+One of several interesting and unique properties of confocal NLOS
+imaging is that the distance function r is directly related to the
+measured time-of-flight as
+
+ equation (11)
+
+Therefore, the corresponding radiometric term, \(\frac{1}{r^{4}}\), can
+be pulled out of the triple integral of Equation (6). For conventional
+NLOS imaging, we only know the combined distance rl + r = tc, but we
+cannot easily use this information to replace the radiometric falloff
+term \(\frac{1}{r_{l}^{2}r^{2}}\) in Equation (5).
+
+Another important property is that retroreflective materials can be
+modeled by replacing the radiometric falloff term \(\frac{1}{r^{4}}\)
+with \(\frac{1}{r^{2}}\), signifying a drastic increase in the indirect
+light signal as a function of distance r. Retroreflective materials
+cannot be handled appropriately by existing non-confocal NLOS methods.
+
+    \subparagraph{传播距离的考虑因素}\label{ux4f20ux64adux8dddux79bbux7684ux8003ux8651ux56e0ux7d20}
+
+共聚焦NLOS成像的几个有趣且独特的特性之一是距离函数r与测量的TOF(time of
+flight)直接相关.
+
+ equation (11)
+
+因此，相应的辐射度项\$ \frac{1}{r^{4}}
+\$可以从等式（6）的三重积分中拉出。对于传统的NLOS成像，我们只知道组合距离rl
++ r = tc，但是我们不能轻易地使用这些信息来代替公式（5）中的辐射衰减项 \$
+\frac{1}{r_{l}^{2}r^{2}}\$ 。
+
+另一个重要特性是逆向反射材料可以通过用\(\frac{1}{r^{2}}\)替换辐射衰减项\(\frac{1}{r^{4}}\)来建模，意味着作为距离r的函数在间接光信号中的急剧增加。现有的非共焦NLOS方法无法适当地处理逆向反射材料。
+
+    \paragraph{The light cone transform}\label{the-light-cone-transform}
+
+We propose the light cone transform (LCT) that expresses the confocal
+NLOS image formation model as a shift-invariant 3D convolution in the
+transform domain. The LCT is a computationally efficient way for
+computing the forward model and, more importantly, leads to a
+closed-form expression for the inverse problem.
+
+We start by using the Dirac delta identity from Equation (8) to rewrite
+the image formation model in Equation (6) as
+
+\[\tau(x',y',t)=\int\int\int_{\Omega}\frac{1}{r^{3}}\rho(x,y,z)\delta((x'-x)^{2}+(y'-y)^{2}+z^{2}-(\frac{tc}{2})^{2})dxdydz\]
+
+Next, we pull out the radiometric term from the integral and perform a
+change of variables by letting \(z=\sqrt{u}\),
+\(\frac{dz}{du}=\frac{1}{2\sqrt{u}}\) such that
+
+\[\tau(x',y',t)=(\frac{2}{tc})^{3}\int\int\int_{\Omega}\rho(x,y,\sqrt(u))\delta((x'-x)^{2}+(y'-y)^{2}+u-(\frac{tc}{2})^{2})\frac{1}{2\sqrt(u)}dxdydu\]
+
+We also introduce a second change of variables using
+\(v=({\frac{tc}{2}})^{2}\), such that
+
+ equation (14)
+
+The image formation model is a 3D convolution, which can alternatively
+be written as
+
+\[R_{t}\{\tau\}=h*R_{z}\{\rho\}\]
+
+where * is the 3D convolution operator, h is the shift-invariant
+convolution kernel, Rz \{·\} resamples \(\rho\) along the z-axis and
+attenuates the result by 1/2\(\sqrt{u}\), and Rt \{·\} resamples
+\(\rho\) along the time axis and scales the result by
+\(v^{\frac{3}{2}}\) . Note that a similar transform is not known to
+exist for the conventional NLOS problem, and that the LCT is specific to
+the confocal case.
+
+    \subparagraph{光锥变换}\label{ux5149ux9525ux53d8ux6362}
+
+我们提出了光锥变换（LCT），其将共焦NLOS图像形成模型表示为变换域中的移位不变3D卷积。
+LCT是计算正向模型的高效算法，更重要的是，它会使逆问题有闭式的表达式。
+
+我们首先使用来自等式（8）的Dirac
+delta同一性将等式（6）中的图像形成模型重写为
+
+\[\tau(x',y',t)=\int\int\int_{\Omega}\frac{1}{r^{3}}\rho(x,y,z)\delta((x'-x)^{2}+(y'-y)^{2}+z^{2}-(\frac{tc}{2})^{2})dxdydz\]
+
+接下来，我们从积分中拉出辐射度项，并通过\(z=\sqrt{u}\),
+\(\frac{dz}{du}=\frac{1}{2\sqrt{u}}\)替换变量，使得
+
+\[\tau(x',y',t)=(\frac{2}{tc})^{3}\int\int\int_{\Omega}\rho(x,y,\sqrt(u))\delta((x'-x)^{2}+(y'-y)^{2}+u-(\frac{tc}{2})^{2})\frac{1}{2\sqrt(u)}dxdydu\]
+
+我们再次替换变量\(v=({\frac{tc}{2}})^{2}\)，进而有
+
+ equation (14)
+
+图像形成模型是3D卷积，可以写为
+
+\[R_{t}\{\tau\}=h*R_{z}\{\rho\}\]
+
+其中*是3D卷积运算符，h是移位不变卷积核，Rz \{·\}沿z轴重新采样\$
+\rho \(并将结果衰减为1/2\)\sqrt{u}\(，Rt { ·}沿时间轴重新采样\)\rho\(并按\)v\^{}\{\frac{3}{2}\}\$
+缩放结果.注意，对于传统的NLOS问题，不存在类似的变换，并且LCT专门用于共焦情况。
+
+    \paragraph{Discretizing the image
+formation}\label{discretizing-the-image-formation}
+
+The transforms introduced with the continuous image formation model
+(Equation (15)) are implemented as discrete operations in practice. For
+example, the operation \(R_{t}\{\tau\}\) can be represented as an
+integral transform
+
+ equation (16)
+
+Note that this transformation applies to all points (x',y')
+independently.
+
+The discrete analog of this transform is given by a matrix-vector
+multiplication \(R_{t}\{\tau\}\), between the vectorized representation
+of the transient image \(\tau\in \mathbb{R}_{+}^{n_{x}n_{y}n_{t}}\) and
+matrix
+\(\textbf{R}_{t}\in \mathbb{R}_{+}^{n_{x}n_{y}n_{h}\times n_{x}n_{y}n_{t}}\)
+. Consider the case of a single measurement on the wall (i.e.,
+\(n_{x} = 1\) and \(n_{y} = 1\)), where \(\Omega_{xy}\) is the region
+sampled by the detector. The individual elements of the vectorized
+transient image and corresponding transform matrix are then given by
+
+ equation (17)
+
+where \$ 1 \leqslant i \leqslant n\_\{h\}\$ and
+\(1 \leqslant j \leqslant n_{t}\). Here, the transient image is defined
+over a range of time values \([a,b] \in (0,\infty)\), which is uniformly
+discretized into \(n_{t}\) equal spaces such that
+\(a = t_0 < t_1 < ··· < t_{n_{t}} = b\). Similarly, the matrix
+\(\textbf {R}_{t}\) resamples the transient image into \(n_h\) elements
+where
+\((\frac{ca}{2})^{2}=h_{0}< h_{1} < ··· < h_{n_{h}} = (\frac{cb}{2})^{2}\)
+.
+
+The corresponding discrete analog of the transformation
+\(R_{z}\{\rho\}\) is similarly defined as a matrix-vector product
+\$R\_\{z\} \rho \$, between the vectorized representation of unknown
+surface albedos \(\rho \in \mathbb{R}_{+}^{n_{x}n_{y}n_{z}}\) and matrix
+\(\textbf{R}_{z}\in \mathbb{R}_{+}^{n_{x}n_{y}n_{h}\times n_{x}n_{y}n_{z}}\)
+. The elements are defined as
+
+ equation (18)
+
+where \$ 1 \leqslant i \leqslant n\_\{z\}\$ and
+\((\frac{ca}{2})=z_{0}< z_{1} < ··· < z_{n_{z}} = (\frac{cb}{2})\) .
+
+The full discrete image formation model is therefore
+
+\[\tau = \textbf{A} \rho = \textbf{R}_t^{-1}\textbf{H}\textbf{R}_{z}\rho\]
+
+where the matrix \(A=\textbf{R}_t^{-1}\textbf{H}\textbf{R}_{z}\) is
+referred to as the light transport matrix. Note that each of these
+matrices is independently applied to the respective dimension and can
+therefore be applied to large-scale datasets in a memory efficient way.
+The matrix
+\(\textbf{H} \in \mathbb{R}_{+}^{n_{x}n_{y}n_{h}\times n_{x}n_{y}n_{h}}\)
+represents the shift-invariant 3D convolution with the 4D hypercone
+(i.e., a convolution with a discretized version of the kernel h), which
+models light transport in free space in the transform domain. Together,
+these matrices represent the discrete light cone transform.
+
+The discrete light cone transform provides a fast and memory efficient
+approach to computing both forward light transport (i.e.,
+\(\textbf{A}\rho\)) and inverse light transport (i.e.,
+\(\textbf{A}^{-1}\rho\)) without forming any of the matrices explicitly.
+Computational efficiency is largely achieved using the convolution
+theorem to compute matrix-vector multiplications with \textbf{H} as
+element-wise multiplications in the Fourier domain. Similarly,
+matrix-vector multiplications with their inverses are computed as
+element-wise divisions in the Fourier domain.
+
+    \subparagraph{离散化的图像生成}\label{ux79bbux6563ux5316ux7684ux56feux50cfux751fux6210}
+
+实践中我们需要将连续图像形成模型（等式（15））引入的变换实现为离散的操作。
+例如，操作\$ R\_\{t\}\{\tau \} \$可以表示为整数变换
+
+ equation (16)
+
+请注意，此转换独立地适用于所有点（x'，y'）。
+
+该变换的离散模拟由矩阵向量乘法\(R_{t}\{\tau\}\)给出，其中，\(\tau\)是瞬态图像的矢量化表示\(\tau\in \mathbb{R}_{+}^{n_{x}n_{y}n_{t}}\)，\(R_{t}\)矩阵是\(\textbf{R}_{t}\in \mathbb{R}_{+}^{n_{x}n_{y}n_{h}\times n_{x}n_{y}n_{t}}\)。考虑在墙上进行单次测量的情况（即\$
+n\_ \{x\} = 1 \(和\) n\_ \{y\} = 1 \(），其中\)
+\Omega\_\{xy\}\$是检测器采样的区域。
+然后给出矢量化瞬态图像和相应变换矩阵的各个元素
+
+ equation (17)
+
+其中\$ 1 \leqslant i \leqslant n\_ \{h\} \(和\) 1 \leqslant j
+\leqslant n\_\{t\} \(。 这里，瞬态图像是在一系列时间值\) {[}a，b{]}
+\in（0，\infty）\(中定义的，它们被均匀地离散化为等间隔的\) n\_\{t\}
+\(，这样\) a = t\_0 equation (18)
+
+其中，\$ 1 \leqslant i \leqslant n\_\{z\}\$ 且
+\((\frac{ca}{2})=z_{0}< z_{1} < ··· < z_{n_{z}} = (\frac{cb}{2})\) .
+
+综上所述，离散化图像生成模型为
+
+\[\tau = \textbf{A} \rho = \textbf{R}_t^{-1}\textbf{H}\textbf{R}_{z}\rho\]
+
+其中，矩阵\$ A = \textbf {R}\emph{t \^{}\{-1\} \textbf {H} \textbf {R}}
+\{z\}
+\(被称为光传输矩阵。 注意，这些矩阵中的每一个都独立地应用于相应的维度，因此可以高效存储并应用于大规模数据集。矩阵\)\textbf{H}
+\in \mathbb{R}\emph{\{+\}\^{}\{n}\{x\}n\_\{y\}n\_\{h\}\times n\_\{x\}n\_\{y\}n\_\{h\}\}\$代表了4D超锥(比如具有离散化版本的核h的卷积)的平移不变3D卷积，其是对变换域中的自由空间的光传输的建模。这些矩阵一起代表离散的光锥变换。
+
+离散光锥变换提供了一种快速且存储高效的方法来计算前向光传输（即\$
+\textbf {A} \rho \(）和反向光传输（即\) \textbf {A} \^{}\{-1\}
+\rho \(）且没有明确地形成任何矩阵。使用卷积定理在很大程度上提高了计算效率，以使用\)\textbf {H}\$计算矩阵向量乘法，作为傅立叶域中的元素乘法。
+类似地，矩阵向量乘法及其逆也作为傅里叶域中的元素划分被计算。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c}{\PYZpc{} 代码段3}
+        
+        \PY{c}{\PYZpc{} Compute inverse filter of NLOS blur kernel}
+        \PY{n}{fpsf} \PY{p}{=} \PY{n}{fftn}\PY{p}{(}\PY{n}{psf}\PY{p}{)}\PY{p}{;}
+        
+        \PY{c}{\PYZpc{} isbackprop == 0}
+        \PY{k}{if} \PY{p}{(}\PY{o}{\PYZti{}}\PY{n}{isbackprop}\PY{p}{)}
+            \PY{n}{invpsf} \PY{p}{=} \PY{n+nb}{conj}\PY{p}{(}\PY{n}{fpsf}\PY{p}{)} \PY{o}{./} \PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{fpsf}\PY{p}{)}\PY{o}{.\PYZca{}}\PY{l+m+mi}{2} \PY{o}{+} \PY{l+m+mf}{1.}\PY{o}{/}\PY{n}{snr}\PY{p}{)}\PY{p}{;}
+        \PY{k}{else}
+            \PY{n}{invpsf} \PY{p}{=} \PY{n+nb}{conj}\PY{p}{(}\PY{n}{fpsf}\PY{p}{)}\PY{p}{;}
+        \PY{k}{end}
+        
+        \PY{c}{\PYZpc{} Define transform operators}
+        \PY{c}{\PYZpc{} M: Temporal resolution of data， 反射数据的时间维度,512}
+        \PY{p}{[}\PY{n}{mtx}\PY{p}{,}\PY{n}{mtxi}\PY{p}{]} \PY{p}{=} \PY{n}{resamplingOperator}\PY{p}{(}\PY{n}{M}\PY{p}{)}\PY{p}{;}
+        \PY{c}{\PYZpc{}mtx:512*512 sparse matrix}
+        \PY{c}{\PYZpc{}mtxi:512*512 sparse matrix}
+        
+        \PY{c}{\PYZpc{} 函数代码如下，在jupter notebook中matlab函数文件需要单独存放}
+        \PY{c}{\PYZpc{} 函数位置 \PYZdq{}.\PYZbs{}confocal\PYZus{}nlos\PYZus{}code\PYZbs{}resamplingOperator.m\PYZdq{}}
+        
+        \PY{c}{\PYZpc{} function [mtx,mtxi] = resamplingOperator(M)}
+        \PY{c}{\PYZpc{} \PYZpc{} Local function that defines resampling operators}
+        \PY{c}{\PYZpc{} \PYZpc{}  S = sparse(i,j,s,m,n,nzmax) uses vectors i, j, and s to generate an}
+        \PY{c}{\PYZpc{}     m\PYZhy{}by\PYZhy{}n sparse matrix such that S(i(k),j(k)) = s(k), with space}
+        \PY{c}{\PYZpc{}     allocated for nzmax nonzeros. }
+        \PY{c}{\PYZpc{} mtx = sparse([],[],[],M.\PYZca{}2,M,M.\PYZca{}2);}
+        
+        \PY{c}{\PYZpc{} x = 1:M.\PYZca{}2;}
+        \PY{c}{\PYZpc{} mtx(sub2ind(size(mtx),x,ceil(sqrt(x)))) = 1;}
+        \PY{c}{\PYZpc{} mtx  = spdiags(1./sqrt(x)\PYZsq{},0,M.\PYZca{}2,M.\PYZca{}2)*mtx;}
+        \PY{c}{\PYZpc{} mtxi = mtx\PYZsq{};}
+        
+        \PY{c}{\PYZpc{} K = log(M)./log(2);}
+        \PY{c}{\PYZpc{} for k = 1:round(K)}
+        \PY{c}{\PYZpc{}     mtx  = 0.5.*(mtx(1:2:end,:)  + mtx(2:2:end,:));}
+        \PY{c}{\PYZpc{}     mtxi = 0.5.*(mtxi(:,1:2:end) + mtxi(:,2:2:end));}
+        \PY{c}{\PYZpc{} end}
+        \PY{c}{\PYZpc{} end}
+        
+        \PY{c}{\PYZpc{} mtx ????}
+        \PY{c}{\PYZpc{} mtxi ????}
+        
+        \PY{c}{\PYZpc{} Permute data dimensions}
+        \PY{c}{\PYZpc{} Permute: 序列改变，}
+        \PY{c}{\PYZpc{} rect\PYZus{}data: 64*64*512, 即x\PYZhy{}y\PYZhy{}t}
+        \PY{c}{\PYZpc{} Permute后, data: 512*64*64, 即t\PYZhy{}y\PYZhy{}x}
+        \PY{n}{data} \PY{p}{=} \PY{n+nb}{permute}\PY{p}{(}\PY{n}{rect\PYZus{}data}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{3} \PY{l+m+mi}{2} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{;}
+        
+        \PY{c}{\PYZpc{} Define volume representing voxel distance from wall}
+        \PY{c}{\PYZpc{} 定义表示三维像素距离的体积}
+        
+        \PY{c}{\PYZpc{} linspace(0,1,M)\PYZsq{}: 512*1}
+        \PY{c}{\PYZpc{} [1 N N]: [1 64 64]}
+        \PY{c}{\PYZpc{} grid\PYZus{}z: 512*64*64}
+        \PY{n}{grid\PYZus{}z} \PY{p}{=} \PY{n+nb}{repmat}\PY{p}{(}\PY{n+nb}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{M}\PY{p}{)}\PY{o}{\PYZsq{}}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1} \PY{n}{N} \PY{n}{N}\PY{p}{]}\PY{p}{)}\PY{p}{;}
+        
+        
+        \PY{n}{display}\PY{p}{(}\PYZdq{}\PY{n}{This} \PY{n}{cell} \PY{n}{run} \PY{n}{successfully}\PYZdq{}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+    "This cell run successfully"
+
+
+
+    \end{Verbatim}
+
+    代码段3遇到的问题: +
+问题1：resamplingOperator中mtx,mtxi的含义？论文和支撑材料中查找不到
+
+问题解答： + 问题1：根据代码段4中的\% Step 2: Resample time axis and pad
+result + tdata = zeros(2.\emph{M,2.}N,2.\emph{N); +
+tdata(1:end./2,1:end./2,1:end./2) = reshape(mtx}data(:,:),{[}M N N{]});
++ 猜想这可能是某种重采样(上采样)算法 +
+根据代码中的\$R\_t\tau \$与程序中的tdata(经过mtx的data)相同，结合支撑材料对Rt\{.\}和Rz\{.\}的说明，可以确定resamplingOperator对应的是Rt\{.\}和Rz\{.\}
+
+    \subsubsection{(3)Inverse methods}\label{inverse-methods}
+
+Here, we derive a closed-form solution for the discrete NLOS problem. We
+first assume that the noise model associated with the discrete light
+transform model in Equation (19) satisfies
+
+ equation (20)
+
+where \(\tilde{\tau}=\textbf{R}_{t} \tau\),
+\(\tilde{\rho}=\textbf{R}_{z} \rho\), and
+\(\eta \in \mathbb{R}^{n_{x}n_{y}n_{h}}\) is white noise.
+
+The solution \(\tilde{\rho}_{*}\) that minimizes the mean square error
+with respect to the ground truth solution \(\tilde{\rho}_{*}\) is well
+known to be given by the Wiener deconvolution filter:{[}29{]}
+
+ equation (21)
+
+where the matrix \(\textbf{F}\) represents the 3D discrete Fourier
+transform and \(\hat{\textbf{H}}\) is a diagonal matrix containing the
+Fourier transform of the shift-invariant 3D convolution kernel.
+\(\alpha\) is a frequency-dependent term representing the signal-tonoise
+ratio (SNR).
+
+Expanding Equation (21) results in the closed-form solution for the
+confocal NLOS problem:
+
+ equation (22)
+
+In the Supplementary Derivations, we also outline a maximum a posteriori
+estimator for the reconstruction problem that lifts these assumptions on
+the noise model and that also allows image priors to be imposed on the
+reconstructed volume. 
+
+    \paragraph{逆方法}\label{ux9006ux65b9ux6cd5}
+
+在这里，我们为离散的NLOS问题推导出一种封闭形式的解决方案。
+我们首先假设与等式（19）中的离散光变换模型相关联的噪声模型满足
+
+ equation (20)
+
+其中， \(\tilde{\tau}=\textbf{R}_{t} \tau\),
+\(\tilde{\rho}=\textbf{R}_{z} \rho\), 和
+\(\eta \in \mathbb{R}^{n_{x}n_{y}n_{h}}\) 是白噪声.
+
+由Wiener反卷积滤波器给出的解决方案\(\tilde{\rho}_{*}\)
+最大限度地减少了与地面实际解决方案相关的均方误差\(\tilde{\rho}_{*}\)：{[}29{]}
+
+ equation (21)
+
+其中，矩阵\$ \textbf {F} \(表示3D离散傅立叶变换，\) \hat {\textbf {H}}
+\$是一个对角矩阵，包含移位不变3D卷积核的傅里叶变换。
+\(\alpha\)是表示信噪比（SNR）的频率相关项。
+
+扩展方程（21）得到共焦NLOS问题的封闭形式的解(closed-form solution)：
+
+ equation (22)
+
+在补充推导中，我们还概述了重建问题的最大后验估计，该估计提取了噪声模型上的这些假设，并且还允许将图像先验施加到重建的体积上。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c}{\PYZpc{} 代码段4}
+        \PY{c}{\PYZpc{} Start Inverting}
+        \PY{c}{\PYZpc{} 开始倒置}
+        \PY{n}{display}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{Inverting...\PYZsq{}}\PY{p}{)}\PY{p}{;}
+        \PY{n}{tic}\PY{p}{;}
+        
+        \PY{c}{\PYZpc{} Step 1: Scale radiometric component}
+        \PY{c}{\PYZpc{} See 2.1.5 Validating radiometric falloff for details}
+        \PY{k}{if} \PY{p}{(}\PY{n}{isdiffuse}\PY{p}{)}
+            \PY{n}{data} \PY{p}{=} \PY{n}{data}\PY{o}{.*}\PY{p}{(}\PY{n}{grid\PYZus{}z}\PY{o}{.\PYZca{}}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{;}
+        \PY{k}{else}
+            \PY{n}{data} \PY{p}{=} \PY{n}{data}\PY{o}{.*}\PY{p}{(}\PY{n}{grid\PYZus{}z}\PY{o}{.\PYZca{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{;}
+        \PY{k}{end}
+        
+        \PY{c}{\PYZpc{} Step 2: Resample time axis and pad result}
+        \PY{c}{\PYZpc{} M: 512}
+        \PY{c}{\PYZpc{} N:64, t\PYZhy{}y\PYZhy{}x}
+        \PY{c}{\PYZpc{} 将x，y，t三轴均扩展2倍，以重采样}
+        \PY{c}{\PYZpc{} 重采样：可分为downsampling和upsampling}
+        
+        \PY{c}{\PYZpc{} tdata: 1024*128*128}
+        \PY{n}{tdata} \PY{p}{=} \PY{n+nb}{zeros}\PY{p}{(}\PY{l+m+mf}{2.}\PY{o}{*}\PY{n}{M}\PY{p}{,}\PY{l+m+mf}{2.}\PY{o}{*}\PY{n}{N}\PY{p}{,}\PY{l+m+mf}{2.}\PY{o}{*}\PY{n}{N}\PY{p}{)}\PY{p}{;}
+        \PY{c}{\PYZpc{} mtx: 512*512}
+        \PY{c}{\PYZpc{} data: 512*64*64}
+        \PY{c}{\PYZpc{} data(:,:): 512*4096,将64个512*64的平面并到一起，故为512*4096}
+        \PY{c}{\PYZpc{} mtx*data(:,:): 512*4096}
+        \PY{c}{\PYZpc{} [M N N]: 512*64*64}
+        \PY{c}{\PYZpc{} 故执行下面一行后，tdata只有1/8不为0}
+        \PY{n}{tdata}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{:}\PY{k}{end}\PY{o}{./}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{k}{end}\PY{o}{./}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{k}{end}\PY{o}{./}\PY{l+m+mi}{2}\PY{p}{)}  \PY{p}{=} \PY{n+nb}{reshape}\PY{p}{(}\PY{n}{mtx}\PY{o}{*}\PY{n}{data}\PY{p}{(}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{)}\PY{p}{,}\PY{p}{[}\PY{n}{M} \PY{n}{N} \PY{n}{N}\PY{p}{]}\PY{p}{)}\PY{p}{;}
+        
+        \PY{c}{\PYZpc{}*************************验证tdata***************************************}
+        \PY{c}{\PYZpc{} ThreeD: 将三维数组转换为图像}
+        \PY{n}{tdata} \PY{p}{=} \PY{n+nb}{ones}\PY{p}{(}\PY{l+m+mf}{2.}\PY{o}{*}\PY{n}{M}\PY{p}{,}\PY{l+m+mf}{2.}\PY{o}{*}\PY{n}{N}\PY{p}{,}\PY{l+m+mf}{2.}\PY{o}{*}\PY{n}{N}\PY{p}{)}\PY{p}{;}
+        \PY{n}{tdata}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{:}\PY{k}{end}\PY{o}{./}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{k}{end}\PY{o}{./}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{k}{end}\PY{o}{./}\PY{l+m+mi}{2}\PY{p}{)}  \PY{p}{=} \PY{n+nb}{reshape}\PY{p}{(}\PY{n}{mtx}\PY{o}{*}\PY{n}{data}\PY{p}{(}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{)}\PY{p}{,}\PY{p}{[}\PY{n}{M} \PY{n}{N} \PY{n}{N}\PY{p}{]}\PY{p}{)}\PY{p}{;}
+        \PY{n}{Three\PYZus{}D}\PY{p}{(}\PY{n}{tdata}\PY{p}{)}\PY{p}{;}
+        \PY{n}{tdata} \PY{p}{=} \PY{n+nb}{zeros}\PY{p}{(}\PY{l+m+mf}{2.}\PY{o}{*}\PY{n}{M}\PY{p}{,}\PY{l+m+mf}{2.}\PY{o}{*}\PY{n}{N}\PY{p}{,}\PY{l+m+mf}{2.}\PY{o}{*}\PY{n}{N}\PY{p}{)}\PY{p}{;}
+        \PY{n}{tdata}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{:}\PY{k}{end}\PY{o}{./}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{k}{end}\PY{o}{./}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{k}{end}\PY{o}{./}\PY{l+m+mi}{2}\PY{p}{)}  \PY{p}{=} \PY{n+nb}{reshape}\PY{p}{(}\PY{n}{mtx}\PY{o}{*}\PY{n}{data}\PY{p}{(}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{)}\PY{p}{,}\PY{p}{[}\PY{n}{M} \PY{n}{N} \PY{n}{N}\PY{p}{]}\PY{p}{)}\PY{p}{;}
+        \PY{c}{\PYZpc{}************************************************************************}
+        
+        
+        \PY{c}{\PYZpc{} Step 3: Convolve with inverse filter and unpad result}
+        \PY{c}{\PYZpc{} tdata: 1024*128*128}
+        \PY{c}{\PYZpc{} fftn(tdata): 1024*128*128 complex data}
+        \PY{c}{\PYZpc{} invpsf: 1024*128*128(complex)}
+        \PY{c}{\PYZpc{} tvol: 1024*128*128 double}
+        \PY{n}{tvol} \PY{p}{=} \PY{n}{ifftn}\PY{p}{(}\PY{n}{fftn}\PY{p}{(}\PY{n}{tdata}\PY{p}{)}\PY{o}{.*}\PY{n}{invpsf}\PY{p}{)}\PY{p}{;}
+        
+        \PY{c}{\PYZpc{} tvol: 512*64*64 double}
+        \PY{c}{\PYZpc{} 在此处再次取出1/8}
+        \PY{n}{tvol} \PY{p}{=} \PY{n}{tvol}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{:}\PY{k}{end}\PY{o}{./}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{k}{end}\PY{o}{./}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{k}{end}\PY{o}{./}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{;}
+        
+        \PY{c}{\PYZpc{} Step 4: Resample depth axis and clamp results}
+        \PY{c}{\PYZpc{} mexi: 512*512}
+        \PY{c}{\PYZpc{} tvol: 512*64*64}
+        \PY{c}{\PYZpc{} mtxi*tvol(:,:): 512*4096}
+        \PY{c}{\PYZpc{} vol: 512*64*64}
+        \PY{n}{vol}  \PY{p}{=} \PY{n+nb}{reshape}\PY{p}{(}\PY{n}{mtxi}\PY{o}{*}\PY{n}{tvol}\PY{p}{(}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{)}\PY{p}{,}\PY{p}{[}\PY{n}{M} \PY{n}{N} \PY{n}{N}\PY{p}{]}\PY{p}{)}\PY{p}{;}
+        \PY{c}{\PYZpc{} 将复数取实部并把负数置为0}
+        \PY{n}{vol}  \PY{p}{=} \PY{n}{max}\PY{p}{(}\PY{n+nb}{real}\PY{p}{(}\PY{n}{vol}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{;}
+        
+        \PY{n}{display}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{... done.\PYZsq{}}\PY{p}{)}\PY{p}{;}
+        \PY{n}{time\PYZus{}elapsed} \PY{p}{=} \PY{n}{toc}\PY{p}{;}
+        
+        \PY{n}{display}\PY{p}{(}\PY{n}{sprintf}\PY{p}{(}\PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{Reconstructed volume of size \PYZpc{}d x \PYZpc{}d x \PYZpc{}d \PYZsq{}}\PY{c}{...}
+            \PY{l+s}{\PYZsq{}}\PY{l+s}{in \PYZpc{}f seconds\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb}{size}\PY{p}{(}\PY{n}{vol}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,}\PY{n+nb}{size}\PY{p}{(}\PY{n}{vol}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{n+nb}{size}\PY{p}{(}\PY{n}{vol}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{n}{time\PYZus{}elapsed}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+            
+        
+        \PY{n}{display}\PY{p}{(}\PYZdq{}\PY{n}{This} \PY{n}{cell} \PY{n}{run} \PY{n}{successfully}\PYZdq{}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Inverting{\ldots}
+{\ldots} done.
+Reconstructed volume of size 64 x 64 x 512 in 6.817375 seconds
+    "This cell run successfully"
+
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_67_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c}{\PYZpc{} 代码段5}
+        \PY{c}{\PYZpc{} range = M.*c.*bin\PYZus{}resolution; \PYZpc{} Maximum range for histogram}
+        \PY{c}{\PYZpc{} 时间轴变换为z轴，深度为之前的一半}
+        \PY{c}{\PYZpc{} Review: size(vol,1) segments from 0 to range./2(2.4576/2=1.2288)}
+        \PY{c}{\PYZpc{} tic\PYZus{}z, tic\PYZus{}x, tic\PYZus{}y 用于画图时固定坐标}
+        \PY{c}{\PYZpc{} size(vol,1): z方向分辨率}
+        \PY{n}{tic\PYZus{}z} \PY{p}{=} \PY{n+nb}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{range}\PY{o}{./}\PY{l+m+mi}{2}\PY{p}{,}\PY{n+nb}{size}\PY{p}{(}\PY{n}{vol}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+        \PY{c}{\PYZpc{} size(vol,2): y方向分辨率}
+        \PY{n}{tic\PYZus{}y} \PY{p}{=} \PY{n+nb}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{width}\PY{p}{,}\PY{n}{width}\PY{p}{,}\PY{n+nb}{size}\PY{p}{(}\PY{n}{vol}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+        \PY{c}{\PYZpc{} size(vol,3): x方向分辨率}
+        \PY{n}{tic\PYZus{}x} \PY{p}{=} \PY{n+nb}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{width}\PY{p}{,}\PY{n}{width}\PY{p}{,}\PY{n+nb}{size}\PY{p}{(}\PY{n}{vol}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+        
+        \PY{c}{\PYZpc{} Crop and flip reconstructed volume for visualization}
+        \PY{c}{\PYZpc{} 裁剪和反转变换得到的3D复原物体 以 可视化}
+        \PY{c}{\PYZpc{} ind的含义?????}
+        \PY{n}{ind} \PY{p}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{M}\PY{o}{.*}\PY{l+m+mf}{2.}\PY{o}{*}\PY{n}{width}\PY{o}{./}\PY{p}{(}\PY{n}{range}\PY{o}{./}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+        \PY{c}{\PYZpc{} vol: 512*64*64, z*y*x}
+        \PY{c}{\PYZpc{} 将vol的第三维，即x轴，逆序(反转变换)}
+        \PY{n}{vol} \PY{p}{=} \PY{n}{vol}\PY{p}{(}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{k}{end}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}
+        \PY{c}{\PYZpc{} z\PYZus{}offset,去除开始的无效数据}
+        \PY{c}{\PYZpc{} 1:ind, ind含义尚不理解}
+        \PY{n}{vol} \PY{p}{=} \PY{n}{vol}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{:}\PY{n}{ind}\PY{p}{)}\PY{o}{+}\PY{n}{z\PYZus{}offset}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{)}\PY{p}{;}
+        
+        \PY{c}{\PYZpc{} 对应改变z轴坐标}
+        \PY{n}{tic\PYZus{}z} \PY{p}{=} \PY{n}{tic\PYZus{}z}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{:}\PY{n}{ind}\PY{p}{)}\PY{o}{+}\PY{n}{z\PYZus{}offset}\PY{p}{)}\PY{p}{;}
+        
+        \PY{c}{\PYZpc{} 下一部分开始绘图}
+        \PY{n}{display}\PY{p}{(}\PYZdq{}\PY{n}{This} \PY{n}{cell} \PY{n}{run} \PY{n}{successfully}\PYZdq{}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+    "This cell run successfully"
+
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c}{\PYZpc{} 代码段6}
+        \PY{c}{\PYZpc{} View result}
+        \PY{n}{figure}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{pos\PYZsq{}}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{10} \PY{l+m+mi}{10} \PY{l+m+mi}{900} \PY{l+m+mi}{300}\PY{p}{]}\PY{p}{)}\PY{p}{;}
+        
+        \PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{;}
+        \PY{c}{\PYZpc{} 前视图即z轴(vol的第一维)的最大值}
+        \PY{n}{imagesc}\PY{p}{(}\PY{n}{tic\PYZus{}x}\PY{p}{,}\PY{n}{tic\PYZus{}y}\PY{p}{,}\PY{n+nb}{squeeze}\PY{p}{(}\PY{n}{max}\PY{p}{(}\PY{n}{vol}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+        \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{Front view\PYZsq{}}\PY{p}{)}\PY{p}{;}
+        \PY{n}{set}\PY{p}{(}\PY{n}{gca}\PY{p}{,}\PY{l+s}{\PYZsq{}}\PY{l+s}{XTick\PYZsq{}}\PY{p}{,}\PY{n+nb}{linspace}\PY{p}{(}\PY{n}{min}\PY{p}{(}\PY{n}{tic\PYZus{}x}\PY{p}{)}\PY{p}{,}\PY{n}{max}\PY{p}{(}\PY{n}{tic\PYZus{}x}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+        \PY{n}{set}\PY{p}{(}\PY{n}{gca}\PY{p}{,}\PY{l+s}{\PYZsq{}}\PY{l+s}{YTick\PYZsq{}}\PY{p}{,}\PY{n+nb}{linspace}\PY{p}{(}\PY{n}{min}\PY{p}{(}\PY{n}{tic\PYZus{}y}\PY{p}{)}\PY{p}{,}\PY{n}{max}\PY{p}{(}\PY{n}{tic\PYZus{}y}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+        \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{x (m)\PYZsq{}}\PY{p}{)}\PY{p}{;}
+        \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{y (m)\PYZsq{}}\PY{p}{)}\PY{p}{;}
+        \PY{n}{colormap}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{gray\PYZsq{}}\PY{p}{)}\PY{p}{;}
+        \PY{n}{axis} \PY{n}{square}\PY{p}{;}
+        
+        \PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{;}
+        \PY{c}{\PYZpc{} 俯视图即y轴(vol的第2维)的最大值}
+        \PY{n}{imagesc}\PY{p}{(}\PY{n}{tic\PYZus{}x}\PY{p}{,}\PY{n}{tic\PYZus{}z}\PY{p}{,}\PY{n+nb}{squeeze}\PY{p}{(}\PY{n}{max}\PY{p}{(}\PY{n}{vol}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+        \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{Top view\PYZsq{}}\PY{p}{)}\PY{p}{;}
+        \PY{n}{set}\PY{p}{(}\PY{n}{gca}\PY{p}{,}\PY{l+s}{\PYZsq{}}\PY{l+s}{XTick\PYZsq{}}\PY{p}{,}\PY{n+nb}{linspace}\PY{p}{(}\PY{n}{min}\PY{p}{(}\PY{n}{tic\PYZus{}x}\PY{p}{)}\PY{p}{,}\PY{n}{max}\PY{p}{(}\PY{n}{tic\PYZus{}x}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+        \PY{n}{set}\PY{p}{(}\PY{n}{gca}\PY{p}{,}\PY{l+s}{\PYZsq{}}\PY{l+s}{YTick\PYZsq{}}\PY{p}{,}\PY{n+nb}{linspace}\PY{p}{(}\PY{n}{min}\PY{p}{(}\PY{n}{tic\PYZus{}z}\PY{p}{)}\PY{p}{,}\PY{n}{max}\PY{p}{(}\PY{n}{tic\PYZus{}z}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+        \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{x (m)\PYZsq{}}\PY{p}{)}\PY{p}{;}
+        \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{z (m)\PYZsq{}}\PY{p}{)}\PY{p}{;}
+        \PY{n}{colormap}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{gray\PYZsq{}}\PY{p}{)}\PY{p}{;}
+        \PY{n}{axis} \PY{n}{square}\PY{p}{;}
+        
+        \PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{;}
+        \PY{c}{\PYZpc{} 俯视图即z轴(vol的第3维)的最大值}
+        \PY{n}{imagesc}\PY{p}{(}\PY{n}{tic\PYZus{}z}\PY{p}{,}\PY{n}{tic\PYZus{}y}\PY{p}{,}\PY{n+nb}{squeeze}\PY{p}{(}\PY{n}{max}\PY{p}{(}\PY{n}{vol}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{Side view\PYZsq{}}\PY{p}{)}\PY{p}{;}
+        \PY{n}{set}\PY{p}{(}\PY{n}{gca}\PY{p}{,}\PY{l+s}{\PYZsq{}}\PY{l+s}{XTick\PYZsq{}}\PY{p}{,}\PY{n+nb}{linspace}\PY{p}{(}\PY{n}{min}\PY{p}{(}\PY{n}{tic\PYZus{}z}\PY{p}{)}\PY{p}{,}\PY{n}{max}\PY{p}{(}\PY{n}{tic\PYZus{}z}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+        \PY{n}{set}\PY{p}{(}\PY{n}{gca}\PY{p}{,}\PY{l+s}{\PYZsq{}}\PY{l+s}{YTick\PYZsq{}}\PY{p}{,}\PY{n+nb}{linspace}\PY{p}{(}\PY{n}{min}\PY{p}{(}\PY{n}{tic\PYZus{}y}\PY{p}{)}\PY{p}{,}\PY{n}{max}\PY{p}{(}\PY{n}{tic\PYZus{}y}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+        \PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{z (m)\PYZsq{}}\PY{p}{)}\PY{p}{;}
+        \PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{y (m)\PYZsq{}}\PY{p}{)}\PY{p}{;}
+        \PY{n}{colormap}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{gray\PYZsq{}}\PY{p}{)}\PY{p}{;}
+        \PY{n}{axis} \PY{n}{square}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_69_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Supplementary Discussion}\label{supplementary-discussion}
+
+    \subsubsection{Resolution limits}\label{resolution-limits}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
