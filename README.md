@@ -5,8 +5,7 @@ Confocal non-line-of-sight imaging based on the light-cone transform
 
 + 增加linearized_admm代码文件夹
   + 该文件夹不存在于Nature附加材料中，但作者所在SCIL实验室提供了这些代码
-
-+ 
++ 更改了Jupyter默认的Latex模板, 故NoteRewrite.ipynb若需要导出pdf, 建议用[修改后的模板](https://github.com/gengruixu/PytochTutorial/blob/master/JupyterNotebook%E4%B8%ADLatex%E6%A8%A1%E6%9D%BF%E8%AE%BE%E7%BD%AE.rar)替换jupyter notebook的默认latex生成模板, 否则无法成功转换.
 
 ## 如何运行？
 
